@@ -3,15 +3,25 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\github\mModule\app\app.iml" filepath="D:\github\mModule\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_lib/library/library.iml" filepath="$PROJECT_DIR$/module_lib/library/library.iml" />
+      <module fileurl="file://D:\github\mModule\module_lib\library\library.iml" filepath="D:\github\mModule\module_lib\library\library.iml" />
       <module fileurl="file://$PROJECT_DIR$/mModule.iml" filepath="$PROJECT_DIR$/mModule.iml" />
+      <module fileurl="file://D:\github\mModule\mModule.iml" filepath="D:\github\mModule\mModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_a/module_a.iml" filepath="$PROJECT_DIR$/module_a/module_a.iml" />
+      <module fileurl="file://D:\github\mModule\module_a\module_a.iml" filepath="D:\github\mModule\module_a\module_a.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_b/module_b.iml" filepath="$PROJECT_DIR$/module_b/module_b.iml" />
+      <module fileurl="file://D:\github\mModule\module_b\module_b.iml" filepath="D:\github\mModule\module_b\module_b.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_base/module_base.iml" filepath="$PROJECT_DIR$/module_core/module_base/module_base.iml" />
+      <module fileurl="file://D:\github\mModule\module_core\module_base\module_base.iml" filepath="D:\github\mModule\module_core\module_base\module_base.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_common/module_common.iml" filepath="$PROJECT_DIR$/module_core/module_common/module_common.iml" />
+      <module fileurl="file://D:\github\mModule\module_core\module_common\module_common.iml" filepath="D:\github\mModule\module_core\module_common\module_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_core.iml" filepath="$PROJECT_DIR$/module_core/module_core.iml" />
+      <module fileurl="file://D:\github\mModule\module_core\module_core.iml" filepath="D:\github\mModule\module_core\module_core.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_data/module_data.iml" filepath="$PROJECT_DIR$/module_core/module_data/module_data.iml" />
+      <module fileurl="file://D:\github\mModule\module_core\module_data\module_data.iml" filepath="D:\github\mModule\module_core\module_data\module_data.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_lib/module_lib.iml" filepath="$PROJECT_DIR$/module_lib/module_lib.iml" />
+      <module fileurl="file://D:\github\mModule\module_lib\module_lib.iml" filepath="D:\github\mModule\module_lib\module_lib.iml" />
     </modules>
   </component>
 </project>
