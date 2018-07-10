@@ -2,7 +2,7 @@
 ext {
     isModule = false
     moduleA = false
-    moduleB = false
+    moduleB = true
 
     android = [compileSdkVersion       : 27,
                buildToolsVersion       : '27.0.3',
