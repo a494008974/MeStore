@@ -1,6 +1,8 @@
 /*全局配置信息及第三方依赖统一管理*/
 ext {
     isModule = false
+    moduleA = false
+    moduleB = false
 
     android = [compileSdkVersion       : 27,
                buildToolsVersion       : '27.0.3',
