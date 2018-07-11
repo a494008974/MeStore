@@ -9,7 +9,8 @@ import android.os.Build;
 import android.os.LocaleList;
 import android.preference.PreferenceManager;
 
-import com.example.tome.component_base.util.SPUtil;
+
+import com.mylove.module_base.utils.SPUtil;
 
 import java.util.Locale;
 
