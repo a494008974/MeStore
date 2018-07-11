@@ -44,10 +44,15 @@ dependencies {
     annotationProcessor rootProject.ext.dependencies["arouter_compiler"]
     api rootProject.ext.dependencies["arouter_api"]
     api rootProject.ext.dependencies["arouter_annotation"]
+
+    api rootProject.ext.dependencies["fragmentation"]
+    api rootProject.ext.dependencies["rxlifecycle2"]
+    api rootProject.ext.dependencies["rxlifecomponents"]
+
     //dagger    annotationProcessor代替apt
-    // api rootProject.ext.dependencies["dagger"]
-    //annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
-    // api rootProject.ext.dependencies["javax-annotation"]
+    api rootProject.ext.dependencies["dagger"]
+    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
+
     //网络
     api rootProject.ext.dependencies["retrofit2"]
     api rootProject.ext.dependencies["converter-gson"]
