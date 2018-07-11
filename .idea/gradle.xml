@@ -17,7 +17,7 @@
             <option value="$PROJECT_DIR$/module_core/module_common" />
             <option value="$PROJECT_DIR$/module_core/module_data" />
             <option value="$PROJECT_DIR$/module_lib" />
-            <option value="$PROJECT_DIR$/module_lib/library" />
+            <option value="$PROJECT_DIR$/module_lib/tvrecyclerview" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

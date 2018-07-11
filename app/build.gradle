@@ -60,6 +60,9 @@ dependencies {
     androidTestImplementation rootProject.ext.dependencies["espresso_core"]
 
     implementation project(':module_core:module_base')
+    implementation project(':module_core:module_data')
+    implementation project(':module_core:module_common')
+
     if (!rootProject.ext.isModule) {
         if (!rootProject.ext.moduleA) {
             implementation project(':module_a')

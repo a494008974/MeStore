@@ -1,1 +1,1 @@
-include ':app', ':module_core:module_base', ':module_core:module_data', ':module_core:module_common', ':module_lib:library', ':module_a', ':module_b'
+include ':app', ':module_core:module_base', ':module_core:module_data', ':module_core:module_common', ':module_lib:tvrecyclerview', ':module_a', ':module_b'
