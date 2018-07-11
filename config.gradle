@@ -1,7 +1,7 @@
 /*全局配置信息及第三方依赖统一管理*/
 ext {
-    isModule = true
-    moduleA = true
+    isModule = false
+    moduleA = false
     moduleB = true
 
     android = [compileSdkVersion       : 27,

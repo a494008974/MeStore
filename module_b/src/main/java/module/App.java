@@ -1,4 +1,4 @@
-package com.module;
+package module;
 
 import com.mylove.module_base.base.BaseApplication;
 
