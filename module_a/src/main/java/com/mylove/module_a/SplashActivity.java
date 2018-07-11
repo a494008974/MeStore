@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 
-@Route(path = "/module/SplashActivity")
+@Route(path = "/com/module/SplashActivity")
 public class SplashActivity extends AppCompatActivity {
 
     static{
