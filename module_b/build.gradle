@@ -17,6 +17,7 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [moduleName: project.getName()]
@@ -51,6 +52,11 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies["appcompat_v7"]
     implementation rootProject.ext.dependencies["constraint_layout"]
+
+    //Arouter
+    annotationProcessor rootProject.ext.dependencies["arouter_compiler"]
+    //butterknife
+    annotationProcessor rootProject.ext.dependencies["butterknife_compiler"]
 
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]

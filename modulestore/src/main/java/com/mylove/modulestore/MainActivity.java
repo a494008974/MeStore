@@ -1,4 +1,4 @@
-package com.mylove.module_b;
+package com.mylove.modulestore;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.mylove.module_common.RouterURL;
 
-@Route(path = RouterURL.ModuleBMain)
+@Route(path = RouterURL.StoreMain)
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -14,5 +14,4 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 }

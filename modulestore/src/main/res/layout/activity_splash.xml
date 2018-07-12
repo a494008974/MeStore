@@ -4,15 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mylove.module_b.MainActivity">
-    <LinearLayout
+    tools:context="com.mylove.modulestore.SplashActivity">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
-            android:gravity="center"/>
-    </LinearLayout>
+            android:gravity="center"
+            android:text="modulestore"/>
+
+        <Button
+            android:id="@+id/tv_moduleb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="跳转到ModuleB"/>
+    </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

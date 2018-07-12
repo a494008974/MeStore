@@ -72,6 +72,9 @@ dependencies {
         if (!rootProject.ext.moduleB) {
             implementation project(':module_b')
         }
+        if (!rootProject.ext.moduleStore) {
+            implementation project(':modulestore')
+        }
     }
 
 }
