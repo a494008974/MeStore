@@ -3,7 +3,6 @@ package com.mylove.module_a;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -19,25 +18,18 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_splash);
 
-        Button btn1 = findViewById(R.id.btn1);
-        btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(RouterURL.ModuleAHome).navigation();
-            }
-        });
+    }
 
-        Button btn2 = findViewById(R.id.btn2);
-        btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ARouter.getInstance().build(RouterURL.ModuleBMain).navigation();
-            }
-        });
-
-        System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuu::"+stringFromJNI());
+    public void doClick(View v){
+        if(v.getId() == R.id.btn1 ){
+            ARouter.getInstance().build(RouterURL.ModuleAHome).navigation();
+        }else if(v.getId() == R.id.btn2 ){
+            ARouter.getInstance().build(RouterURL.ModuleBMain).navigation();
+        }else if(v.getId() == R.id.btn3 ){
+            ARouter.getInstance().build(RouterURL.ModuleAHome).navigation();
+        }
     }
 
     public static native String stringFromJNI();
