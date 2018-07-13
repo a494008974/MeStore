@@ -12,6 +12,7 @@ import android.support.multidex.MultiDex;
 import com.facebook.stetho.Stetho;
 import com.mylove.module_base.component.ApplicationComponent;
 import com.mylove.module_base.component.DaggerApplicationComponent;
+import com.mylove.module_base.module.ApplicationModule;
 import com.mylove.module_base.utils.AppUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -108,7 +109,10 @@ public class BaseApplication extends Application {
             }
         });
 
-        applicationComponent = DaggerApplicationComponent.builder().build();
+        applicationComponent = DaggerApplicationComponent
+                                        .builder()
+                                        .applicationModule(new ApplicationModule(this))
+                                        .build();
     }
 
     private void initBugly() {

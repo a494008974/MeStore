@@ -24,9 +24,9 @@ public class SplashActivity extends AppCompatActivity{
         if(v.getId() == R.id.tv_modulea){
             ARouter.getInstance().build(RouterURL.StoreMain).navigation();
         }else if(v.getId() == R.id.tv_moduleb){
-            ARouter.getInstance().build("").navigation();
+            ARouter.getInstance().build(RouterURL.StoreMain).navigation();
         }else if(v.getId() == R.id.tv_modulec){
-            ARouter.getInstance().build("").navigation();
+            ARouter.getInstance().build(RouterURL.StoreMain).navigation();
         }
     }
 
