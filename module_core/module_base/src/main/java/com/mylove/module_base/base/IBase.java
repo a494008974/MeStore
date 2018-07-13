@@ -13,8 +13,6 @@ public interface IBase {
 
     int getContentLayout();
 
-//    void initInjector(ApplicationComponent appComponent);
-
     void bindView(View view, Bundle savedInstanceState);
 
     void initData();

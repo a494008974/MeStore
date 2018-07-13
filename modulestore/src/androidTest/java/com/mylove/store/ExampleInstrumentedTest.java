@@ -1,4 +1,4 @@
-package com.mylove.modulestore;
+package com.mylove.store;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -4,20 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mylove.modulestore.SplashActivity">
-    <RelativeLayout
+    tools:context="com.mylove.store.SplashActivity">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/tv_modulea"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="modulestore"/>
-
+            android:layout_height="wrap_content"
+            android:onClick="doClick"
+            android:text="跳转到ModuleA"/>
         <Button
             android:id="@+id/tv_moduleb"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="doClick"
             android:text="跳转到ModuleB"/>
-    </RelativeLayout>
+        <Button
+            android:id="@+id/tv_modulec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="doClick"
+            android:text="跳转到ModuleC"/>
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

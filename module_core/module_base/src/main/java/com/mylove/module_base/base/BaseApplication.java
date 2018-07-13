@@ -10,6 +10,8 @@ import android.content.res.Configuration;
 import android.support.multidex.MultiDex;
 
 import com.facebook.stetho.Stetho;
+import com.mylove.module_base.component.ApplicationComponent;
+import com.mylove.module_base.component.DaggerApplicationComponent;
 import com.mylove.module_base.utils.AppUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -31,6 +33,8 @@ public class BaseApplication extends Application {
     private ActivityControl mActivityControl;
     private String BUGLY_ID = "a29fb52485" ;
 
+    private ApplicationComponent applicationComponent;
+
     //SmartRefreshLayout 有三种方式,请参考:https://github.com/scwang90/SmartRefreshLayout
     //static 代码段可以防止内存泄露
     static {
@@ -50,6 +54,10 @@ public class BaseApplication extends Application {
 //                return new ClassicsFooter(context).setDrawableSize(20);
 //            }
 //        });
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 
     public ActivityControl getActivityControl() {
@@ -99,6 +107,8 @@ public class BaseApplication extends Application {
                 return IS_DEBUG;
             }
         });
+
+        applicationComponent = DaggerApplicationComponent.builder().build();
     }
 
     private void initBugly() {

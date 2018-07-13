@@ -52,7 +52,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.dependencies["appcompat_v7"]
     implementation rootProject.ext.dependencies["constraint_layout"]
-
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation rootProject.ext.dependencies["junit"]
     androidTestImplementation rootProject.ext.dependencies["runner"]
@@ -60,12 +59,13 @@ dependencies {
 
     //Arouter
     annotationProcessor rootProject.ext.dependencies["arouter_compiler"]
-
     //butterknife
     annotationProcessor rootProject.ext.dependencies["butterknife_compiler"]
-
+    //dagger
+    annotationProcessor rootProject.ext.dependencies["dagger-compiler"]
 
     implementation project(':module_core:module_base')
     implementation project(':module_core:module_data')
     implementation project(':module_core:module_common')
+    implementation project(':module_lib:tvrecyclerview')
 }
