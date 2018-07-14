@@ -22,11 +22,11 @@ public class SplashActivity extends AppCompatActivity{
 
     public void doClick(View v){
         if(v.getId() == R.id.tv_modulea){
-            ARouter.getInstance().build(RouterURL.StoreMain).navigation();
+            ARouter.getInstance().build(RouterURL.StoreSplash).navigation();
         }else if(v.getId() == R.id.tv_moduleb){
             ARouter.getInstance().build(RouterURL.StoreMain).navigation();
         }else if(v.getId() == R.id.tv_modulec){
-            ARouter.getInstance().build(RouterURL.StoreMain).navigation();
+            ARouter.getInstance().build(RouterURL.StoreDetail).navigation();
         }
     }
 
