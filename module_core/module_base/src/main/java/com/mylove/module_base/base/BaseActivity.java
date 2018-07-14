@@ -27,6 +27,7 @@ public abstract class BaseActivity<TP extends BaseContract.BasePresenter> extend
         super.onCreate(savedInstanceState);
         mRootView = createView(null, null, savedInstanceState);
         setContentView(mRootView);
+        initInjector(BaseApplication.getAppContext().getApplicationComponent());
         attachView();
         bindView(mRootView, savedInstanceState);
         initData();

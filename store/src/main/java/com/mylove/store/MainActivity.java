@@ -8,8 +8,13 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.mylove.module_base.base.BaseActivity;
 import com.mylove.module_base.base.BaseApplication;
 import com.mylove.module_base.component.ApplicationComponent;
+import com.mylove.module_base.module.ApplicationModule;
 import com.mylove.module_common.RouterURL;
+import com.mylove.store.bean.BannerData;
+import com.mylove.store.bean.BaseResponse;
+import com.mylove.store.component.DaggerStoreComponent;
 import com.mylove.store.contract.MainContract;
+import com.mylove.store.module.StoreModule;
 import com.mylove.store.presenter.MainPresenter;
 
 import java.io.IOException;
@@ -33,32 +38,39 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
+    public void initInjector(ApplicationComponent appComponent) {
+        DaggerStoreComponent.builder()
+                .applicationModule(new ApplicationModule(this))
+                .storeModule(new StoreModule())
+                .build()
+                .inject(this);
+    }
+
+    @Override
     public void bindView(View view, Bundle savedInstanceState) {
-        System.out.println(".............bindView.................");
-        ApplicationComponent applicationComponent = BaseApplication.getAppContext().getApplicationComponent();
-        OkHttpClient.Builder builder = applicationComponent.getOkHttp();
-        OkHttpClient okHttpClient = builder.build();
-
-        String url = "http://www.wanandroid.com/banner/json";
-        Request request = new Request.Builder().url(url).build();
-
-        okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                System.out.println(".................onFailure................"+e.getMessage());
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String result = response.body().string();
-                System.out.println(result);
-            }
-        });
 
     }
 
     @Override
     public void initData() {
+        mPresenter.getBanner();
+    }
 
+
+    @Override
+    public void showResult(BaseResponse<BannerData> bannerDataBaseResponse) {
+        StringBuilder sb = new StringBuilder();
+        for (int i=0; i<bannerDataBaseResponse.getData().size(); i++){
+            BannerData bannerData = bannerDataBaseResponse.getData().get(i);
+            sb.append("------------------------------\n")
+                    .append("id = "+bannerData.getId()+"\n")
+                    .append("imagePath = "+bannerData.getImagePath()+"\n")
+                    .append("isVisible = "+bannerData.getIsVisible()+"\n")
+                    .append("order = "+bannerData.getOrder()+"\n")
+                    .append("title = "+bannerData.getTitle()+"\n")
+                    .append("type = "+bannerData.getType()+"\n")
+                    .append("url = "+bannerData.getUrl()+"\n");
+        }
+        tvResult.setText(sb.toString());
     }
 }

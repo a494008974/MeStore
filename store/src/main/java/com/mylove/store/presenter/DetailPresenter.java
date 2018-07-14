@@ -2,6 +2,7 @@ package com.mylove.store.presenter;
 
 import com.mylove.module_base.base.BasePresenter;
 import com.mylove.store.contract.DetailContract;
+import com.mylove.store.model.StoreApi;
 
 import javax.inject.Inject;
 
@@ -11,8 +12,9 @@ import javax.inject.Inject;
 
 public class DetailPresenter extends BasePresenter<DetailContract.View> implements DetailContract.Presenter {
 
+    private StoreApi storeApi;
     @Inject
-    public DetailPresenter() {
-
+    public DetailPresenter(StoreApi storeApi) {
+        this.storeApi = storeApi;
     }
 }
