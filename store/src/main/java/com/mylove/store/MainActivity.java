@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.mylove.module_base.base.BaseActivity;
-import com.mylove.module_base.base.BaseApplication;
 import com.mylove.module_base.component.ApplicationComponent;
 import com.mylove.module_base.module.ApplicationModule;
 import com.mylove.module_common.RouterURL;
@@ -17,19 +16,13 @@ import com.mylove.store.contract.MainContract;
 import com.mylove.store.module.StoreModule;
 import com.mylove.store.presenter.MainPresenter;
 
-import java.io.IOException;
 
 import butterknife.BindView;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
 @Route(path = RouterURL.StoreMain)
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
-    @BindView(R.id.tv_result)
+    @BindView(R2.id.tv_result_main)
     TextView tvResult;
 
     @Override

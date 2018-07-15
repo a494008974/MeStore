@@ -1,7 +1,7 @@
 /*全局配置信息及第三方依赖统一管理*/
 ext {
     isModule = false
-    moduleStore = false // 包含MainActivity
+    moduleStore = true // 包含MainActivity
 
     android = [compileSdkVersion       : 27,
                buildToolsVersion       : '27.0.3',
@@ -9,7 +9,7 @@ ext {
                targetSdkVersion        : 23,
                versionCode             : 1,
                versionName             : "1.0.0",
-               applicationId           : "com.mylove.mmodule",
+               applicationId           : "com.mylove.app",
                androidSupportSdkVersion: "27.1.1"
     ]
 
@@ -23,7 +23,7 @@ ext {
                     "support-v4"                     : "com.android.support:support-v4:${android["androidSupportSdkVersion"]}",
                     "cardview-v7"                    : "com.android.support:cardview-v7:${android["androidSupportSdkVersion"]}",
                     "recyclerview-v7"                : "com.android.support:recyclerview-v7:${android["androidSupportSdkVersion"]}",
-                    "fragmentation"         : "me.yokeyword:fragmentation:1.0.0",
+                    "fragmentation"                  : "me.yokeyword:fragmentation:1.0.0",
 
                     //multidex
                     "multidex"                       : 'com.android.support:multidex:1.0.2',

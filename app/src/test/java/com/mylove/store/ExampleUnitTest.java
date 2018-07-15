@@ -1,4 +1,4 @@
-package com.mylove.mmodule;
+package com.mylove.store;
 
 import org.junit.Test;
 

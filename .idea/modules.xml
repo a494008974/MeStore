@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/MeStore.iml" filepath="$PROJECT_DIR$/MeStore.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mModule.iml" filepath="$PROJECT_DIR$/mModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_base/module_base.iml" filepath="$PROJECT_DIR$/module_core/module_base/module_base.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_common/module_common.iml" filepath="$PROJECT_DIR$/module_core/module_common/module_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_core.iml" filepath="$PROJECT_DIR$/module_core/module_core.iml" />
