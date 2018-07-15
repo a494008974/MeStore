@@ -12,8 +12,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
 
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".DetailActivity"></activity>
+
+        <meta-data
+            android:name="design_width"
+            android:value="720" />
+        <meta-data
+            android:name="design_height"
+            android:value="1080" />
     </application>
 
 </manifest>

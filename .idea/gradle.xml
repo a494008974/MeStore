@@ -10,8 +10,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/module_a" />
-            <option value="$PROJECT_DIR$/module_b" />
             <option value="$PROJECT_DIR$/module_core" />
             <option value="$PROJECT_DIR$/module_core/module_base" />
             <option value="$PROJECT_DIR$/module_core/module_common" />

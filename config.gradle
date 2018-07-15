@@ -1,9 +1,7 @@
 /*全局配置信息及第三方依赖统一管理*/
 ext {
     isModule = false
-    moduleA = false // 包含MainActivity
-    moduleB = false
-    moduleStore = true // 包含MainActivity
+    moduleStore = false // 包含MainActivity
 
     android = [compileSdkVersion       : 27,
                buildToolsVersion       : '27.0.3',

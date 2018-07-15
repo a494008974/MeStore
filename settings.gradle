@@ -2,6 +2,4 @@ include ':app', ':store',
         ':module_core:module_base',
         ':module_core:module_data',
         ':module_core:module_common',
-        ':module_lib:tvrecyclerview',
-        ':module_a',
-        ':module_b'
+        ':module_lib:tvrecyclerview'

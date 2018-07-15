@@ -66,14 +66,8 @@ dependencies {
     implementation project(':module_core:module_common')
 
     if (!rootProject.ext.isModule) {
-        if (!rootProject.ext.moduleA) {
-            implementation project(':module_a')
-        }
-        if (!rootProject.ext.moduleB) {
-            implementation project(':module_b')
-        }
         if (!rootProject.ext.moduleStore) {
-            implementation project(':modulestore')
+            implementation project(':store')
         }
     }
 
