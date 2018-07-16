@@ -7,7 +7,7 @@
     android:clickable="true"
     android:focusableInTouchMode="true"
     android:layout_margin="@dimen/dp_20"
-    android:background="@drawable/module_store_selector_item_background">
+    android:background="@drawable/module_store_selector_list_item_background">
     <TextView
         android:id="@+id/store_list_title"
         android:layout_width="match_parent"

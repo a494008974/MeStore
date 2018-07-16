@@ -1,6 +1,8 @@
 package com.mylove.store;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
 
 import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -41,9 +44,28 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     private ListAdapter mListAdapter;
     private CommonRecyclerViewAdapter mGridAdapter;
+    private int selPosition = -1;
 
-    private String[] types = {"全部应用","电视直播","视频点播","其它应用"};
+    public static final long STORE_SEND_MSG_DURATION = 500;
+    public static final int STORE_TYPE = 0x1212;
+    public static final int STORE_APPS = 0x1213;
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case STORE_TYPE:
 
+                    break;
+                case STORE_APPS:
+                    if(mListAdapter != null && mListAdapter.getItemCount() > selPosition){
+                        String item = mListAdapter.getItem(selPosition);
+                        mPresenter.getStoreApps(item,40);
+                    }
+                    break;
+            }
+        }
+    };
 
     @Override
     public int getContentLayout() {
@@ -93,12 +115,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
         storeType.setSpacingWithMargins(10, 0);
         mListAdapter = new ListAdapter(this, true);
-        mListAdapter.setDatas(Arrays.asList(types));
+        mListAdapter.setDatas(null);
         storeType.setAdapter(mListAdapter);
 
         storeApps.setSpacingWithMargins(10, 10);
         mGridAdapter = new GridAdapter(this);
-        mGridAdapter.setDatas(ItemDatas.getDatas(types[0],60));
+        mGridAdapter.setDatas(null);
         storeApps.setAdapter(mGridAdapter);
     }
 
@@ -108,6 +130,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
                 onMoveFocusBorder(itemView, 1.0f, 40,0);
+                if(storeType.getSelectedPosition() != selPosition){
+                    selPosition = position;
+                    mHandler.removeMessages(STORE_APPS);
+                    mHandler.sendEmptyMessageDelayed(STORE_APPS,STORE_SEND_MSG_DURATION);
+                }
             }
 
             @Override
@@ -169,26 +196,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void initData() {
-        mPresenter.getBanner();
-
-        storeType.requestFocus();
+        mPresenter.getStoreTypes();
     }
 
+    @Override
+    public void showStoreTypes(List<String> types) {
+        mListAdapter.setDatas(types);
+        mListAdapter.notifyDataSetChanged();
+        storeType.requestFocus();
+        if(types != null && types.size() > 0){
+            mPresenter.getStoreApps(types.get(0),90);
+        }
+    }
 
     @Override
-    public void showResult(BaseResponse<BannerData> bannerDataBaseResponse) {
-        StringBuilder sb = new StringBuilder();
-        for (int i=0; i<bannerDataBaseResponse.getData().size(); i++){
-            BannerData bannerData = bannerDataBaseResponse.getData().get(i);
-            sb.append("------------------------------\n")
-                    .append("id = "+bannerData.getId()+"\n")
-                    .append("imagePath = "+bannerData.getImagePath()+"\n")
-                    .append("isVisible = "+bannerData.getIsVisible()+"\n")
-                    .append("order = "+bannerData.getOrder()+"\n")
-                    .append("title = "+bannerData.getTitle()+"\n")
-                    .append("type = "+bannerData.getType()+"\n")
-                    .append("url = "+bannerData.getUrl()+"\n");
+    public void showStoreApps(List<String> apps) {
+        mGridAdapter.setDatas(apps);
+        mGridAdapter.notifyDataSetChanged();
+        if(mGridAdapter.getItemCount() > 0){
+            storeApps.scrollToPosition(0);
         }
-//        tvResult.setText(sb.toString());
     }
 }

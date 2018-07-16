@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 public class ItemDatas {
+    public static String[] types = {"全部应用","电视直播","视频点播","其它应用"};
 
     public static List<String> getDatas(String type,int count) {
         return getMovietDatas(type,count);

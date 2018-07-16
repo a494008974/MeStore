@@ -4,6 +4,8 @@ import com.mylove.module_base.base.BaseContract;
 import com.mylove.store.bean.BannerData;
 import com.mylove.store.bean.BaseResponse;
 
+import java.util.List;
+
 /**
  * Created by Administrator on 2018/7/13.
  */
@@ -11,7 +13,8 @@ import com.mylove.store.bean.BaseResponse;
 public class MainContract implements BaseContract {
 
     public interface View extends BaseContract.BaseView{
-        void showResult(BaseResponse<BannerData> bannerDataBaseResponse);
+        void showStoreTypes(List<String> types);
+        void showStoreApps(List<String> apps);
     }
 
     public interface Presenter extends BaseContract.BasePresenter<View>{
