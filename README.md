@@ -1,3 +1,3 @@
-# mModule
-组件化架
+# MeStore
+组件化架构
 

@@ -29,7 +29,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 .subscribe(new BaseObserver<BaseResponse<BannerData>>() {
                     @Override
                     public void onSuccess(BaseResponse<BannerData> bannerDataBaseResponse) {
-                        mView.showResult(bannerDataBaseResponse);
+//                        mView.showResult(bannerDataBaseResponse);
                     }
 
                     @Override

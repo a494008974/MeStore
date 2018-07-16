@@ -3,4 +3,13 @@
     <color name="module_store_colorPrimary">#3F51B5</color>
     <color name="module_store_colorPrimaryDark">#303F9F</color>
     <color name="module_store_colorAccent">#FF4081</color>
+    <color name="module_store_colorBlack">#000000</color>
+
+    <color name="module_store_colorGrid_Item">#82000000</color>
+
+    <color name="module_store_item_border_color">#1e93f7</color>
+    <color name="module_store_item_shadow_color">#428fd2</color>
+
+    <color name="module_store_item_activated_color">#1e93f7</color>
+    <color name="module_store_item_default_color">#00000000</color>
 </resources>

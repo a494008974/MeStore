@@ -1,11 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="module_store_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="module_store_AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/module_store_colorPrimary</item>
         <item name="colorPrimaryDark">@color/module_store_colorPrimaryDark</item>
         <item name="colorAccent">@color/module_store_colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
 </resources>

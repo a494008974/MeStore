@@ -17,7 +17,8 @@ public class SplashActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.module_store_activity_splash);
-
+        ARouter.getInstance().build(RouterURL.StoreMain).navigation();
+        finish();
     }
 
     public void doClick(View v){
