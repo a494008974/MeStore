@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
@@ -37,6 +40,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R2.id.store_apps)
     TvRecyclerView storeApps;
 
+    @BindView(R2.id.store_progressbar)
+    ImageView storeProgressbar;
+
     protected FocusBorder mFocusBorder;
 
     private ListAdapter mListAdapter;
@@ -45,11 +51,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private List<String> typeDatas = new ArrayList<String>();
     private List<String> appDatas = new ArrayList<String>();
 
-    private int selPosition = -1;
+    private int selPosition = -1,cPosition = -1;
 
     public static final long STORE_SEND_MSG_DURATION = 600;
     public static final int STORE_TYPE = 0x1212;
     public static final int STORE_APPS = 0x1213;
+
     private Handler mHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -59,9 +66,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
                     break;
                 case STORE_APPS:
+                    mHandler.removeMessages(STORE_APPS);
                     if(mListAdapter != null && mListAdapter.getItemCount() > selPosition){
                         String item = mListAdapter.getItem(selPosition);
-                        mPresenter.getStoreApps(item,40);
+                        if(cPosition != -1 && cPosition != selPosition) {
+                            storeApps.setVisibility(View.INVISIBLE);
+                            storeProgressbar.setVisibility(View.VISIBLE);
+                        }
+                        cPosition = selPosition;
+                        mPresenter.getStoreApps(item,90);
                     }
                     break;
             }
@@ -117,10 +130,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         storeType.setOnItemListener(new SimpleOnItemListener() {
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
+                mHandler.removeMessages(STORE_APPS);
                 onMoveFocusBorder(itemView, 1.0f, 40);
-                if(storeType.getSelectedPosition() != selPosition){
+                if(position != cPosition){
                     selPosition = position;
-                    mHandler.removeMessages(STORE_APPS);
                     mHandler.sendEmptyMessageDelayed(STORE_APPS,STORE_SEND_MSG_DURATION);
                 }
             }
@@ -128,6 +141,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
                 storeType.setSelection(position);
+                mHandler.sendEmptyMessageDelayed(STORE_APPS,STORE_SEND_MSG_DURATION);
             }
         });
 
@@ -186,7 +200,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mListAdapter.notifyDataSetChanged();
         storeType.requestFocus();
         if(types != null && types.size() > 0){
-            mPresenter.getStoreApps(types.get(0),90);
+            storeType.setSelection(0);
         }
     }
 
@@ -196,8 +210,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mGridAdapter.clearDatas();
         mGridAdapter.setDatas(appDatas);
         mGridAdapter.notifyDataSetChanged();
+
         if(mGridAdapter.getItemCount() > 0){
-            storeApps.scrollToPosition(0);
+            storeApps.smoothScrollToPosition(0);
         }
+        storeProgressbar.setVisibility(View.GONE);
+        storeApps.setVisibility(View.VISIBLE);
+
     }
 }

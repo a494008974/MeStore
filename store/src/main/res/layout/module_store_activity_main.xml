@@ -22,18 +22,27 @@
             android:padding="@dimen/dp_20"
             app:tv_isMenu="true"
             app:tv_layoutManager="V7LinearLayoutManager"/>
-
-        <com.owen.tvrecyclerview.widget.TvRecyclerView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/store_apps"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:padding="@dimen/dp_20"
-            android:orientation="vertical"
-            app:tv_layoutManager="GridLayoutManager"
-            app:tv_numColumns="3"
-            app:tv_numRows="3" />
+            android:layout_weight="8">
+            <com.owen.tvrecyclerview.widget.TvRecyclerView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/store_apps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/dp_20"
+                android:orientation="vertical"
+                app:tv_layoutManager="GridLayoutManager"
+                app:tv_numColumns="3"
+                app:tv_numRows="3" />
+            <ImageView
+                android:id="@+id/store_progressbar"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_80"
+                android:scaleType="fitCenter"
+                android:src="@drawable/module_store_anim_progress"
+                android:layout_gravity="center" />
+        </FrameLayout>
     </LinearLayout>
-
 </RelativeLayout>
