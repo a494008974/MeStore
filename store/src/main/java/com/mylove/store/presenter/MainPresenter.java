@@ -56,7 +56,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 List<String> apps = ItemDatas.getDatas(type,count);
                 mView.showStoreApps(apps);
             }
-        },300);
+        },500);
 
     }
 }

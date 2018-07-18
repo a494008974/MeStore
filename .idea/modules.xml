@@ -3,24 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MeStore.iml" filepath="$PROJECT_DIR$/MeStore.iml" />
-      <module fileurl="file://E:\github\MeStore\MeStore.iml" filepath="E:\github\MeStore\MeStore.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\github\MeStore\app\app.iml" filepath="E:\github\MeStore\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_base/module_base.iml" filepath="$PROJECT_DIR$/module_core/module_base/module_base.iml" />
-      <module fileurl="file://E:\github\MeStore\module_core\module_base\module_base.iml" filepath="E:\github\MeStore\module_core\module_base\module_base.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_common/module_common.iml" filepath="$PROJECT_DIR$/module_core/module_common/module_common.iml" />
-      <module fileurl="file://E:\github\MeStore\module_core\module_common\module_common.iml" filepath="E:\github\MeStore\module_core\module_common\module_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_core.iml" filepath="$PROJECT_DIR$/module_core/module_core.iml" />
-      <module fileurl="file://E:\github\MeStore\module_core\module_core.iml" filepath="E:\github\MeStore\module_core\module_core.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_data/module_data.iml" filepath="$PROJECT_DIR$/module_core/module_data/module_data.iml" />
-      <module fileurl="file://E:\github\MeStore\module_core\module_data\module_data.iml" filepath="E:\github\MeStore\module_core\module_data\module_data.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_lib/module_lib.iml" filepath="$PROJECT_DIR$/module_lib/module_lib.iml" />
-      <module fileurl="file://E:\github\MeStore\module_lib\module_lib.iml" filepath="E:\github\MeStore\module_lib\module_lib.iml" />
       <module fileurl="file://E:\github\mModule\store\modulestore.iml" filepath="E:\github\mModule\store\modulestore.iml" />
       <module fileurl="file://$PROJECT_DIR$/store/store.iml" filepath="$PROJECT_DIR$/store/store.iml" />
-      <module fileurl="file://E:\github\MeStore\store\store.iml" filepath="E:\github\MeStore\store\store.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_lib/tvrecyclerview/tvrecyclerview.iml" filepath="$PROJECT_DIR$/module_lib/tvrecyclerview/tvrecyclerview.iml" />
-      <module fileurl="file://E:\github\MeStore\module_lib\tvrecyclerview\tvrecyclerview.iml" filepath="E:\github\MeStore\module_lib\tvrecyclerview\tvrecyclerview.iml" />
     </modules>
   </component>
 </project>

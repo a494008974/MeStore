@@ -67,7 +67,7 @@ public class DownloadUtil {
         if (initialized) return instance;
         mBroadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
         mDataHelper = new DataHelper(context.getApplicationContext());
-//        loadAll();
+        loadAll();
         initialized = true;
         return instance;
     }
@@ -110,7 +110,7 @@ public class DownloadUtil {
         mBroadcastManager.unregisterReceiver(mReceiver);
         mTaskDispatcher.quit();
         stopAllTask();
-//        saveAll();
+        saveAll();
         sRecordMap.clear();
         sRecordMap = null;
         sDownloadPermit = null;
@@ -155,6 +155,9 @@ public class DownloadUtil {
     }
 
     private boolean checkRequest(DownloadRequest request) {
+        if(request == null){
+            return false;
+        }
         if (sRecordMap.get(request.getId()) != null) {
             return false;
         }
@@ -166,13 +169,22 @@ public class DownloadUtil {
         return true;
     }
 
+    private void removeTask(DownloadRecord record){
+        sRecordMap.remove(record.getId());
+    }
+
     public boolean reEnqueue(String taskId) {
         if (sRecordMap.get(taskId) != null) {
             sRecordMap.get(taskId).setDownloadState(STATE_REENQUEUE);
-            mTaskDispatcher.enqueueRecord(sRecordMap.get(taskId));
+            DownloadRecord record = sRecordMap.get(taskId);
+            mTaskDispatcher.enqueueRecord(record);
             Intent intent = new Intent(ACTION_REENQUEUE);
             intent.putExtra(EXTRA_TASK_ID, taskId);
             mBroadcastManager.sendBroadcast(intent);
+            DownloadListener listener = record.getRequest().getListener();
+            if(listener != null){
+                listener.onProgress(record);
+            }
             return true;
         }
         return false;
@@ -196,6 +208,12 @@ public class DownloadUtil {
             Intent intent = new Intent(ACTION_PAUSED);
             intent.putExtra(EXTRA_TASK_ID, taskId);
             mBroadcastManager.sendBroadcast(intent);
+
+            DownloadListener listener = record.getRequest().getListener();
+            if(listener != null){
+                listener.onPaused(record);
+            }
+
             return true;
         }
         return false;
@@ -208,6 +226,12 @@ public class DownloadUtil {
             Intent intent = new Intent(ACTION_CANCELED);
             intent.putExtra(EXTRA_TASK_ID, taskId);
             mBroadcastManager.sendBroadcast(intent);
+            DownloadRecord record = sRecordMap.get(taskId);
+            DownloadListener listener = record.getRequest().getListener();
+            if(listener != null){
+                listener.onCanceled(record);
+            }
+            removeTask(record);
             return true;
         }
         return false;
@@ -223,6 +247,12 @@ public class DownloadUtil {
             Intent intent = new Intent(ACTION_RESUME);
             intent.putExtra(EXTRA_TASK_ID, taskId);
             mBroadcastManager.sendBroadcast(intent);
+
+            DownloadListener listener = record.getRequest().getListener();
+            if(listener != null){
+                listener.onResume(record);
+            }
+
             for (int i = 0; i < record.getSubTaskList().size(); i++) {
                 sExecutor.execute(record.getSubTaskList().get(i));
             }
@@ -235,6 +265,10 @@ public class DownloadUtil {
         Intent intent = new Intent(ACTION_PROGRESS);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
+        DownloadListener listener = record.getRequest().getListener();
+        if(listener != null){
+            listener.onProgress(record);
+        }
     }
 
     public void taskFinished(DownloadRecord record) {
@@ -244,12 +278,22 @@ public class DownloadUtil {
         Intent intent = new Intent(ACTION_FINISHED);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
+        DownloadListener listener = record.getRequest().getListener();
+        if(listener != null){
+            listener.onFinish(record);
+        }
+        removeTask(record);
     }
 
     public void fileLengthSet(DownloadRecord record) {
         Intent intent = new Intent(ACTION_FILE_LENGTH_GET);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
+
+        DownloadListener listener = record.getRequest().getListener();
+        if(listener != null){
+            listener.onFileLengthGet(record);
+        }
     }
 
     public void downloadFailed(DownloadRecord record, String errorMsg) {
@@ -260,6 +304,11 @@ public class DownloadUtil {
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         intent.putExtra(EXTRA_ERROR_MSG, errorMsg);
         mBroadcastManager.sendBroadcast(intent);
+        DownloadListener listener = record.getRequest().getListener();
+        if(listener != null){
+            listener.onFailed(record,errorMsg);
+        }
+        removeTask(record);
     }
 
     public void newTaskAdd(DownloadRecord record) {
@@ -267,6 +316,10 @@ public class DownloadUtil {
         Intent intent = new Intent(ACTION_NEW_TASK_ADD);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
+        DownloadListener listener = record.getRequest().getListener();
+        if(listener != null){
+            listener.onNewTaskAdd(record);
+        }
     }
 
     public static DownloadRecord parseRecord(Intent intent) {
@@ -281,6 +334,10 @@ public class DownloadUtil {
         Intent intent = new Intent(ACTION_START);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
+        DownloadListener listener = record.getRequest().getListener();
+        if(listener != null){
+            listener.onStart(record);
+        }
     }
 
     public void registerListener(Context context, final DownloadListener listener) {
@@ -302,38 +359,6 @@ public class DownloadUtil {
             @Override
             public void onReceive(Context context, Intent intent) {
                 DownloadRecord record = DownloadUtil.parseRecord(intent);
-//                switch (intent.getAction()) {
-//                    case ACTION_NEW_TASK_ADD:
-//                        listener.onNewTaskAdd(record);
-//                        break;
-//                    case ACTION_START:
-//                        listener.onStart(record);
-//                        break;
-//                    case ACTION_FILE_LENGTH_GET:
-//                        listener.onFileLengthGet(record);
-//                        break;
-//                    case ACTION_PROGRESS:
-//                        listener.onProgress(record);
-//                        break;
-//                    case ACTION_PAUSED:
-//                        listener.onPaused(record);
-//                        break;
-//                    case ACTION_RESUME:
-//                        listener.onResume(record);
-//                        break;
-//                    case ACTION_REENQUEUE:
-//                        listener.onReEnqueue(record);
-//                        break;
-//                    case ACTION_CANCELED:
-//                        listener.onCanceled(record);
-//                        break;
-//                    case ACTION_FAILED:
-//                        listener.onFailed(record, intent.getStringExtra(EXTRA_ERROR_MSG));
-//                        break;
-//                    case ACTION_FINISHED:
-//                        listener.onFinish(record);
-//                        break;
-//                }
                 String action = intent.getAction();
                 if(ACTION_NEW_TASK_ADD.equals(action)){
                 	listener.onNewTaskAdd(record);

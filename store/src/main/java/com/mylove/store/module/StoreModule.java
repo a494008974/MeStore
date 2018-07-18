@@ -1,5 +1,6 @@
 package com.mylove.store.module;
 
+import com.mylove.module_base.base.BaseApplication;
 import com.mylove.store.model.StoreApi;
 import com.mylove.store.model.StoreApiService;
 

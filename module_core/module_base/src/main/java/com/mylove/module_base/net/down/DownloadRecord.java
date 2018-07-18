@@ -29,6 +29,10 @@ public class DownloadRecord implements Comparable<DownloadRecord>{
         return currentLength;
     }
 
+    public DownloadRequest getRequest() {
+        return request;
+    }
+
     public int getFileLength() {
         return fileLength;
     }

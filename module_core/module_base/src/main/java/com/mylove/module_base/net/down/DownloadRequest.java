@@ -13,11 +13,13 @@ public class DownloadRequest{
     @Expose private final String downloadUrl;
     @Expose private final String downloadDir;
     @Expose private final String downloadName;
+    private DownloadListener listener;
 
     private DownloadRequest(Builder builder) {
         downloadUrl = builder.downloadUrl;
         downloadDir = builder.downloadDir;
         downloadName = builder.downloadName;
+        listener = builder.listener;
     }
 
     public String getFilePath() {
@@ -38,6 +40,10 @@ public class DownloadRequest{
 
     public String getDownloadName() {
         return downloadName;
+    }
+
+    public DownloadListener getListener() {
+        return listener;
     }
 
     public String getId(){

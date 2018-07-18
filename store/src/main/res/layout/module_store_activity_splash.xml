@@ -1,31 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.mylove.store.SplashActivity">
-    <LinearLayout
+    <ImageView
+        android:id="@+id/splash_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <Button
-            android:id="@+id/tv_modulea"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="doClick"
-            android:text="跳转到ModuleA"/>
-        <Button
-            android:id="@+id/tv_moduleb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="doClick"
-            android:text="跳转到ModuleB"/>
-        <Button
-            android:id="@+id/tv_modulec"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="doClick"
-            android:text="跳转到ModuleC"/>
-    </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+        android:src="@drawable/splash"
+        android:scaleType="fitXY"/>
+</RelativeLayout>

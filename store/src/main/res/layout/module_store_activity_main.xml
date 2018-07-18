@@ -9,11 +9,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/module_store_background"
         android:orientation="horizontal">
         <com.owen.tvrecyclerview.widget.TvRecyclerView
             android:id="@+id/store_type"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:background="@color/module_store_colorPrimaryDark"
+            android:background="@color/module_store_color_enblue"
             android:layout_width="0dp"
             android:layout_weight="2"
             android:layout_height="match_parent"
@@ -29,7 +30,6 @@
             android:layout_height="match_parent"
             android:layout_weight="8"
             android:padding="@dimen/dp_20"
-            android:background="@color/module_store_colorPrimary"
             android:orientation="vertical"
             app:tv_layoutManager="GridLayoutManager"
             app:tv_numColumns="3"

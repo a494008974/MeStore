@@ -1,3 +1,4 @@
 <resources>
     <string name="module_store_app_name">MeStore</string>
+    <string name="module_store_app_down">Down</string>
 </resources>

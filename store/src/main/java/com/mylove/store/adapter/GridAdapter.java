@@ -22,6 +22,6 @@ public class GridAdapter extends CommonRecyclerViewAdapter<String> {
 
     @Override
     public void onBindItemHolder(CommonRecyclerViewHolder helper, String item, int position) {
-        helper.getHolder().setText(R.id.store_grid_title, item);
+        helper.getHolder().setText(R.id.app_grid_title, item);
     }
 }

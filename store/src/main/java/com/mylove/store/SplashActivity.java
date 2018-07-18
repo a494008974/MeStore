@@ -1,34 +1,48 @@
 package com.mylove.store;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.mylove.module_base.base.BaseActivity;
+import com.mylove.module_base.component.ApplicationComponent;
 import com.mylove.module_common.RouterURL;
+
+import butterknife.BindView;
 
 
 @Route(path = RouterURL.StoreSplash)
-public class SplashActivity extends AppCompatActivity{
+public class SplashActivity extends BaseActivity{
 
+    @BindView(R2.id.splash_img)
+    ImageView splashImg;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.module_store_activity_splash);
-        ARouter.getInstance().build(RouterURL.StoreMain).navigation();
-        finish();
+    public int getContentLayout() {
+        return R.layout.module_store_activity_splash;
     }
 
-    public void doClick(View v){
-        if(v.getId() == R.id.tv_modulea){
-            ARouter.getInstance().build(RouterURL.StoreSplash).navigation();
-        }else if(v.getId() == R.id.tv_moduleb){
-            ARouter.getInstance().build(RouterURL.StoreMain).navigation();
-        }else if(v.getId() == R.id.tv_modulec){
-            ARouter.getInstance().build(RouterURL.StoreDetail).navigation();
-        }
+    @Override
+    public void initInjector(ApplicationComponent appComponent) {
+
     }
 
+    @Override
+    public void bindView(View view, Bundle savedInstanceState) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ARouter.getInstance().build(RouterURL.StoreMain).navigation();
+                finish();
+            }
+        },1500);
+    }
+
+    @Override
+    public void initData() {
+
+    }
 }

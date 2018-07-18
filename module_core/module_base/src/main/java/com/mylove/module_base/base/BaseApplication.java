@@ -13,6 +13,7 @@ import com.facebook.stetho.Stetho;
 import com.mylove.module_base.component.ApplicationComponent;
 import com.mylove.module_base.component.DaggerApplicationComponent;
 import com.mylove.module_base.module.ApplicationModule;
+import com.mylove.module_base.net.down.DownloadUtil;
 import com.mylove.module_base.utils.AppUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
@@ -100,7 +101,6 @@ public class BaseApplication extends Application {
         AutoLayoutConifg.getInstance().useDeviceSize();
         //Stetho调试工具初始化
         Stetho.initializeWithDefaults(this);
-
         // 初始化Logger工具
         Logger.addLogAdapter(new AndroidLogAdapter(){
             @Override
@@ -113,6 +113,8 @@ public class BaseApplication extends Application {
                                         .builder()
                                         .applicationModule(new ApplicationModule(this))
                                         .build();
+
+        DownloadUtil.get().init(this);
     }
 
     private void initBugly() {
