@@ -27,7 +27,7 @@ public interface StoreApiService {
     @GET("application/getApplication")
     Observable<BaseArray<AppData>> getApp(@Query("lang") String lang, @Query("menu_id") String id);
 
-//    http://sapi.bsw-inc.com/api/application/detail?lang=en&appid=2
+//    http://sapi.bsw-inc.com/application/detail?lang=en&appid=2
     @GET("application/detail")
     Observable<BaseObject<DetailData>> getDetail(@Query("lang") String lang, @Query("appid") String id);
 }

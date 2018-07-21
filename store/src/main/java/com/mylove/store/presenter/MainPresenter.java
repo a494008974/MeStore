@@ -30,7 +30,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 .subscribe(new BaseObserver<BaseArray<MenuData>>() {
                     @Override
                     public void onSuccess(BaseArray<MenuData> menuDataBaseResponse) {
-                        if(menuDataBaseResponse != null){
+                        if(menuDataBaseResponse != null && mView != null){
                             mView.showStoreTypes(menuDataBaseResponse.getData());
                         }
                     }
@@ -49,7 +49,7 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
                 .subscribe(new BaseObserver<BaseArray<AppData>>() {
                     @Override
                     public void onSuccess(BaseArray<AppData> appDataBaseResponse) {
-                        if(appDataBaseResponse != null){
+                        if(appDataBaseResponse != null && mView != null){
                             mView.showStoreApps(appDataBaseResponse.getData());
                         }
                     }

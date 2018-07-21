@@ -43,7 +43,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
                 .subscribe(new BaseObserver<BaseObject<DetailData>>() {
                     @Override
                     public void onSuccess(BaseObject<DetailData> detailData) {
-                        if(detailData != null && detailData.getData() != null){
+                        if(detailData != null && detailData.getData() != null && mView != null){
                             mView.showDetail(detailData.getData());
                         }
                     }

@@ -13,6 +13,7 @@ public class AppData implements Parcelable {
      * id : 2
      * name : 爱奇艺
      * version : 8.6.1.76232
+     * size : 8.8M
      * icon : http://test.0755tv.net/uploads/2018-07-19/91b755c18369c0e50b97fec33433dca3.png
      */
 
@@ -20,6 +21,15 @@ public class AppData implements Parcelable {
     private String name;
     private String version;
     private String icon;
+    private String size;
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
 
     public String getId() {
         return id;
@@ -64,6 +74,7 @@ public class AppData implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.version);
         dest.writeString(this.icon);
+        dest.writeString(this.size);
     }
 
     public AppData() {
@@ -74,6 +85,7 @@ public class AppData implements Parcelable {
         this.name = in.readString();
         this.version = in.readString();
         this.icon = in.readString();
+        this.size = in.readString();
     }
 
     public static final Parcelable.Creator<AppData> CREATOR = new Parcelable.Creator<AppData>() {

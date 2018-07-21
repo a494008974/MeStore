@@ -27,6 +27,7 @@ import com.mylove.module_base.net.down.DownloadRecord;
 import com.mylove.module_base.net.down.DownloadRequest;
 import com.mylove.module_base.net.down.DownloadUtil;
 import com.mylove.module_base.utils.FileUtils;
+import com.mylove.module_base.utils.Md5;
 import com.mylove.module_common.RouterURL;
 import com.mylove.store.adapter.PicAdapter;
 import com.mylove.store.bean.AppData;
@@ -130,6 +131,9 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         appData = getIntent().getParcelableExtra("appData");
         if(appData != null){
             tvAppTitle.setText(appData.getName());
+            ImageLoaderHelper.getInstance().load(this,appData.getIcon(),appIcon);
+            storeDetailCount.setText(String.format(getResources().getString(R.string.module_store_app_mem),appData.getSize()));
+            storeDetailVersion.setText(String.format(getResources().getString(R.string.module_store_app_ver),appData.getVersion()));
             mPresenter.getStoreDetail(LocaleHelper.getLanguage(BaseApplication.getAppContext()).getLanguage(),appData.getId());
         }
     }
@@ -153,7 +157,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         storeDetailPic.setOnItemListener(new SimpleOnItemListener() {
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                onMoveFocusBorder(itemView, 1.0f, 8);
+                onMoveFocusBorder(itemView, 1.0f, 0);
             }
 
             @Override
@@ -181,13 +185,16 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         //否 判断是否有当前apk下载过的文件
             //是 状态为INSTALL
             //否 状态为START
-        System.out.println(detailData.getPackagename());
         if(ApkUtils.isAppInstalled(DetailActivity.this,detailData.getPackagename())){
             STORE_STATUS = STORE_STATUS_RUN;
         }else{
-            System.out.println(fileName);
             if(FileUtils.isFileExists(fileName)){
-                STORE_STATUS = STORE_STATUS_INSTALL;
+                if(detailData.getMd5().equals(Md5.getFileMD5(fileName))){
+                    STORE_STATUS = STORE_STATUS_INSTALL;
+                }else{
+                    FileUtils.deleteFile(fileName);
+                    STORE_STATUS = STORE_STATUS_START;
+                }
             }else{
                 STORE_STATUS = STORE_STATUS_START;
             }
@@ -274,12 +281,14 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                 public void onFinish(DownloadRecord record) {
                     STORE_STATUS = STORE_STATUS_INSTALL;
                     showStatu();
+
+                    System.out.println("STORE_STATUS_INSTALL md5 ==== "+Md5.getFileMD5(record.getFilePath()));
+
                     ApkUtils.install(DetailActivity.this,record.getFilePath());
                 }
 
                 @Override
                 public void onCanceled(DownloadRecord record) {
-
                 }
             };
             request = DownloadRequest.newBuilder()
@@ -289,11 +298,10 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                     .downloadListener(downloadListener)
                     .build();
         }
+        System.out.println("md5 ==== "+detailData.getMd5());
 
-        ImageLoaderHelper.getInstance().load(this,detailData.getAppicon(),appIcon);
 
-        storeDetailCount.setText(String.format(getResources().getString(R.string.module_store_app_mem),detailData.getSize()));
-        storeDetailVersion.setText(String.format(getResources().getString(R.string.module_store_app_ver),detailData.getVersion()));
+
         storeDetailInfo.setText(String.format(getResources().getString(R.string.module_store_detail_info),detailData.getApp_detail()));
 
         mListAdapter.clearDatas();
@@ -307,7 +315,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         super.onDestroy();
         if(request != null) {
             DownloadUtil.get().removeTask(request);
-            if(STORE_STATUS == STORE_STATUS_DOWNING){
+            if(STORE_STATUS != STORE_STATUS_INSTALL || STORE_STATUS != STORE_STATUS_RUN){
                 FileUtils.deleteFile(fileName);
             }
         }

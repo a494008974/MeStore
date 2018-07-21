@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MeStore.iml" filepath="$PROJECT_DIR$/MeStore.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melauncher/melauncher.iml" filepath="$PROJECT_DIR$/melauncher/melauncher.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_base/module_base.iml" filepath="$PROJECT_DIR$/module_core/module_base/module_base.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_common/module_common.iml" filepath="$PROJECT_DIR$/module_core/module_common/module_common.iml" />
       <module fileurl="file://$PROJECT_DIR$/module_core/module_core.iml" filepath="$PROJECT_DIR$/module_core/module_core.iml" />

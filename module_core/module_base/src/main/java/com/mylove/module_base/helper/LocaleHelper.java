@@ -44,7 +44,7 @@ public class LocaleHelper {
         //Locale locale = new Locale("ar","EG");
         Locale locale = new Locale("en","");
 //        Locale.getDefault();
-        return getPersistedLocal(context, Locale.getDefault());
+        return getPersistedLocal(context, locale);
     }
 
     public static Context setLocale(Context context, Locale locale) {

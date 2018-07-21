@@ -15,6 +15,8 @@ public class DetailData {
      * appicon : http://appstore.bsw-inc.com/uploads/2018-07-19/91b755c18369c0e50b97fec33433dca3.png
      * url : http://appstore.bsw-inc.com/uploads/2018-07-19/8f1b5af8658211c6ec00e7fdeac3fc0b
      * version : 8.6.1.76232
+     * md5 : 2cc1bf5b973e2da23c4314c5adae9532
+     * size : 8.8M
      * re_pic : ["http://appstore.bsw-inc.com/uploads/2018-07-19/91b755c18369c0e50b97fec33433dca3.png"]
      * app_detail : null
      * create_time : 1531985897
@@ -29,7 +31,16 @@ public class DetailData {
     private Object app_detail;
     private String create_time;
     private List<String> re_pic;
+    private String md5;
     private String size;
+
+    public String getMd5() {
+        return md5;
+    }
+
+    public void setMd5(String md5) {
+        this.md5 = md5;
+    }
 
     public String getSize() {
         return size;

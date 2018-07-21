@@ -6,6 +6,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 
+import com.mylove.module_base.utils.FileUtils;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,11 +42,17 @@ public class ApkUtils {
     }
 
     public static void install(Context ctx, String filename) {
-        Uri uri = Uri.fromFile(new File(filename));
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.setDataAndType(uri, "application/vnd.android.package-archive");
-        ctx.startActivity(intent);
+        if(FileUtils.isFileExists(filename)){
+            try {
+                Uri uri = Uri.fromFile(new File(filename));
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setDataAndType(uri, "application/vnd.android.package-archive");
+                ctx.startActivity(intent);
+            }catch (Exception e){
+
+            }
+        }
     }
 
     public static void uninstall(Context ctx, String apk) {

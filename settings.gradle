@@ -1,4 +1,4 @@
-include ':app', ':store',
+include ':app', ':store', ':melauncher',
         ':module_core:module_base',
         ':module_core:module_data',
         ':module_core:module_common',

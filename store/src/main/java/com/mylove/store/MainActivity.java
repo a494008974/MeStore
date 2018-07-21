@@ -28,6 +28,7 @@ import com.mylove.store.presenter.MainPresenter;
 import com.owen.tvrecyclerview.widget.SimpleOnItemListener;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,29 +60,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public static final int STORE_TYPE = 0x1212;
     public static final int STORE_APPS = 0x1213;
 
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what){
-                case STORE_TYPE:
-
-                    break;
-                case STORE_APPS:
-                    mHandler.removeMessages(STORE_APPS);
-                    if(mListAdapter != null && mListAdapter.getItemCount() > selPosition){
-                        MenuData item = mListAdapter.getItem(selPosition);
-                        if(cPosition != -1 && cPosition != selPosition) {
-                            storeApps.setVisibility(View.INVISIBLE);
-                            storeProgressbar.setVisibility(View.VISIBLE);
-                        }
-                        cPosition = selPosition;
-                        mPresenter.getStoreApps(LocaleHelper.getLanguage(BaseApplication.getAppContext()).getLanguage(),item.getId());
-                    }
-                    break;
-            }
-        }
-    };
+    private Handler mHandler = new MyHandler(this);
 
     @Override
     public int getContentLayout() {
@@ -181,6 +160,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
     protected void onMoveFocusBorder(View focusedView, float scale, float roundRadius) {
         if(null != mFocusBorder) {
             mFocusBorder.onFocus(focusedView, FocusBorder.OptionsFactory.get(scale, scale, roundRadius));
@@ -213,6 +198,39 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
         storeProgressbar.setVisibility(View.GONE);
         storeApps.setVisibility(View.VISIBLE);
+    }
 
+    private static class MyHandler extends Handler {
+        private final WeakReference<MainActivity> mActivity;
+
+        public MyHandler(MainActivity activity) {
+            mActivity = new WeakReference<MainActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            System.out.println(msg);
+            if (mActivity.get() == null) {
+                return;
+            }
+            mActivity.get().todo(msg);
+        }
+    }
+
+    private void todo(Message msg) {
+        switch (msg.what){
+            case STORE_APPS:
+                    mHandler.removeMessages(STORE_APPS);
+                    if(mListAdapter != null && mListAdapter.getItemCount() > selPosition){
+                        MenuData item = mListAdapter.getItem(selPosition);
+                        if(cPosition != -1 && cPosition != selPosition) {
+                            storeApps.setVisibility(View.INVISIBLE);
+                            storeProgressbar.setVisibility(View.VISIBLE);
+                        }
+                        cPosition = selPosition;
+                        mPresenter.getStoreApps(LocaleHelper.getLanguage(BaseApplication.getAppContext()).getLanguage(),item.getId());
+                    }
+                    break;
+            }
     }
 }
