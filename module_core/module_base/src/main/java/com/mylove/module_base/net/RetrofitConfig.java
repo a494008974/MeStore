@@ -90,6 +90,28 @@ public class RetrofitConfig {
         }
     };
 
+    /**
+     * 数据解密
+     */
+    public static final Interceptor dataDeCoderInterceptor = new Interceptor() {
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            final Request request = chain.request();
+            Buffer requestBuffer = new Buffer();
+            if (request.body() != null) {
+                request.body().writeTo(requestBuffer);
+            } else {
+                Log.d("LogTAG", "request.body() == null");
+            }
+            //打印url信息
+            Log.w(TAG, "dataDeCoderInterceptor: " + request.url() + (request.body() != null ? "?" + _parseParams(request.body(), requestBuffer) : ""));
+            final Response response = chain.proceed(request);
+
+            return response;
+        }
+    };
+
     @NonNull
     private static String _parseParams(RequestBody body, Buffer requestBuffer) throws UnsupportedEncodingException {
         if (body.contentType() != null && !body.contentType().toString().contains("multipart")) {

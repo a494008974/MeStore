@@ -12,7 +12,9 @@ import android.support.multidex.MultiDex;
 import com.facebook.stetho.Stetho;
 import com.mylove.module_base.component.ApplicationComponent;
 import com.mylove.module_base.component.DaggerApplicationComponent;
+import com.mylove.module_base.helper.LocaleHelper;
 import com.mylove.module_base.module.ApplicationModule;
+
 import com.mylove.module_base.net.down.DownloadUtil;
 import com.mylove.module_base.utils.AppUtils;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -20,11 +22,7 @@ import com.orhanobut.logger.Logger;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
-import com.facebook.stetho.Stetho;
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.Logger;
-import com.zhy.autolayout.config.AutoLayoutConifg;
-import com.zhy.autolayout.utils.L;
+import java.util.Locale;
 
 
 public class BaseApplication extends Application {
@@ -81,7 +79,9 @@ public class BaseApplication extends Application {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        //Locale _UserLocale = LocaleHelper.getLanguage(this);
+//        Locale _UserLocale = LocaleHelper.getLanguage(this);
+//        _UserLocale.getCountry();
+//        _UserLocale.getLanguage();
         //系统语言改变了应用保持之前设置的语言
 //        if (_UserLocale != null) {
 //            LocaleHelper.setLocale(this, _UserLocale);

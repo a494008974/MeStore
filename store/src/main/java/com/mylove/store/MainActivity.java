@@ -4,21 +4,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.mylove.module_base.adapter.CommonRecyclerViewAdapter;
 import com.mylove.module_base.base.BaseActivity;
+import com.mylove.module_base.base.BaseApplication;
 import com.mylove.module_base.component.ApplicationComponent;
 import com.mylove.module_base.focus.FocusBorder;
+import com.mylove.module_base.helper.LocaleHelper;
 import com.mylove.module_base.module.ApplicationModule;
 import com.mylove.module_common.RouterURL;
 import com.mylove.store.adapter.GridAdapter;
 import com.mylove.store.adapter.ListAdapter;
+import com.mylove.store.bean.AppData;
+import com.mylove.store.bean.MenuData;
 import com.mylove.store.component.DaggerStoreComponent;
 import com.mylove.store.contract.MainContract;
 import com.mylove.store.module.StoreModule;
@@ -48,8 +50,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private ListAdapter mListAdapter;
     private CommonRecyclerViewAdapter mGridAdapter;
 
-    private List<String> typeDatas = new ArrayList<String>();
-    private List<String> appDatas = new ArrayList<String>();
+    private List<MenuData> typeDatas = new ArrayList<MenuData>();
+    private List<AppData> appDatas = new ArrayList<AppData>();
 
     private int selPosition = -1,cPosition = -1;
 
@@ -68,13 +70,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 case STORE_APPS:
                     mHandler.removeMessages(STORE_APPS);
                     if(mListAdapter != null && mListAdapter.getItemCount() > selPosition){
-                        String item = mListAdapter.getItem(selPosition);
+                        MenuData item = mListAdapter.getItem(selPosition);
                         if(cPosition != -1 && cPosition != selPosition) {
                             storeApps.setVisibility(View.INVISIBLE);
                             storeProgressbar.setVisibility(View.VISIBLE);
                         }
                         cPosition = selPosition;
-                        mPresenter.getStoreApps(item,90);
+                        mPresenter.getStoreApps(LocaleHelper.getLanguage(BaseApplication.getAppContext()).getLanguage(),item.getId());
                     }
                     break;
             }
@@ -103,8 +105,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     .borderColor(getResources().getColor(R.color.module_store_item_shadow_color))
                     .borderWidth(TypedValue.COMPLEX_UNIT_DIP, 1)
                     .shadowColor(getResources().getColor(R.color.module_store_item_shadow_color))
-                    .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 20)
-                    .animDuration(200L)
+                    .shadowWidth(TypedValue.COMPLEX_UNIT_DIP, 15)
+                    .animDuration(180L)
                     .noShimmer()
                     .build(this);
         }
@@ -154,10 +156,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             @Override
             public void onItemClick(TvRecyclerView parent, View itemView, int position) {
-                String item = (String) mGridAdapter.getItem(position);
-                Bundle bundle = new Bundle();
-                bundle.putString("appid",item);
-                ARouter.getInstance().build(RouterURL.StoreDetail).with(bundle).navigation();
+                AppData item = (AppData) mGridAdapter.getItem(position);
+                ARouter.getInstance().build(RouterURL.StoreDetail).withParcelable("appData",item).navigation();
             }
         });
 
@@ -189,14 +189,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void initData() {
-        mPresenter.getStoreTypes();
+        mPresenter.getStoreTypes(LocaleHelper.getLanguage(this).getLanguage());
     }
 
     @Override
-    public void showStoreTypes(List<String> types) {
-        typeDatas = types;
+    public void showStoreTypes(List<MenuData> types) {
         mListAdapter.clearDatas();
-        mListAdapter.setDatas(typeDatas);
+        mListAdapter.appendDatas(types);
         mListAdapter.notifyDataSetChanged();
         storeType.requestFocus();
         if(types != null && types.size() > 0){
@@ -205,12 +204,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     @Override
-    public void showStoreApps(List<String> apps) {
-        appDatas = apps;
+    public void showStoreApps(List<AppData> apps) {
         mGridAdapter.clearDatas();
-        mGridAdapter.setDatas(appDatas);
+        mGridAdapter.appendDatas(apps);
         mGridAdapter.notifyDataSetChanged();
-
         if(mGridAdapter.getItemCount() > 0){
             storeApps.smoothScrollToPosition(0);
         }

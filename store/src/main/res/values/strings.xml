@@ -1,4 +1,15 @@
 <resources>
     <string name="module_store_app_name">MeStore</string>
-    <string name="module_store_app_down">Down</string>
+
+    <string name="module_store_saft">安全认证</string>
+    <string name="module_store_company">官方认证</string>
+    <string name="module_store_app_mem">大小: %s</string>
+    <string name="module_store_app_ver">版本: %s</string>
+
+    <string name="module_store_run">运行</string>
+    <string name="module_store_install">安装</string>
+    <string name="module_store_down">下载</string>
+    <string name="module_store_detail_info">
+        <b>软件简介: </b>%s
+    </string>
 </resources>

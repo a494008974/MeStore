@@ -66,6 +66,7 @@ public class DownloadUtil {
     public DownloadUtil init(Context context) {
         if (initialized) return instance;
         mBroadcastManager = LocalBroadcastManager.getInstance(context.getApplicationContext());
+        registerListener(context);
         mDataHelper = new DataHelper(context.getApplicationContext());
         loadAll();
         initialized = true;
@@ -168,8 +169,10 @@ public class DownloadUtil {
         }
         return true;
     }
-
-    private void removeTask(DownloadRecord record){
+    public void removeTask(DownloadRequest request){
+        sRecordMap.remove(request.getId());
+    }
+    public void removeTask(DownloadRecord record){
         sRecordMap.remove(record.getId());
     }
 
@@ -181,10 +184,6 @@ public class DownloadUtil {
             Intent intent = new Intent(ACTION_REENQUEUE);
             intent.putExtra(EXTRA_TASK_ID, taskId);
             mBroadcastManager.sendBroadcast(intent);
-            DownloadListener listener = record.getRequest().getListener();
-            if(listener != null){
-                listener.onProgress(record);
-            }
             return true;
         }
         return false;
@@ -208,12 +207,6 @@ public class DownloadUtil {
             Intent intent = new Intent(ACTION_PAUSED);
             intent.putExtra(EXTRA_TASK_ID, taskId);
             mBroadcastManager.sendBroadcast(intent);
-
-            DownloadListener listener = record.getRequest().getListener();
-            if(listener != null){
-                listener.onPaused(record);
-            }
-
             return true;
         }
         return false;
@@ -227,11 +220,6 @@ public class DownloadUtil {
             intent.putExtra(EXTRA_TASK_ID, taskId);
             mBroadcastManager.sendBroadcast(intent);
             DownloadRecord record = sRecordMap.get(taskId);
-            DownloadListener listener = record.getRequest().getListener();
-            if(listener != null){
-                listener.onCanceled(record);
-            }
-            removeTask(record);
             return true;
         }
         return false;
@@ -247,12 +235,6 @@ public class DownloadUtil {
             Intent intent = new Intent(ACTION_RESUME);
             intent.putExtra(EXTRA_TASK_ID, taskId);
             mBroadcastManager.sendBroadcast(intent);
-
-            DownloadListener listener = record.getRequest().getListener();
-            if(listener != null){
-                listener.onResume(record);
-            }
-
             for (int i = 0; i < record.getSubTaskList().size(); i++) {
                 sExecutor.execute(record.getSubTaskList().get(i));
             }
@@ -265,10 +247,6 @@ public class DownloadUtil {
         Intent intent = new Intent(ACTION_PROGRESS);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
-        DownloadListener listener = record.getRequest().getListener();
-        if(listener != null){
-            listener.onProgress(record);
-        }
     }
 
     public void taskFinished(DownloadRecord record) {
@@ -278,22 +256,12 @@ public class DownloadUtil {
         Intent intent = new Intent(ACTION_FINISHED);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
-        DownloadListener listener = record.getRequest().getListener();
-        if(listener != null){
-            listener.onFinish(record);
-        }
-        removeTask(record);
     }
 
     public void fileLengthSet(DownloadRecord record) {
         Intent intent = new Intent(ACTION_FILE_LENGTH_GET);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
-
-        DownloadListener listener = record.getRequest().getListener();
-        if(listener != null){
-            listener.onFileLengthGet(record);
-        }
     }
 
     public void downloadFailed(DownloadRecord record, String errorMsg) {
@@ -304,11 +272,6 @@ public class DownloadUtil {
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         intent.putExtra(EXTRA_ERROR_MSG, errorMsg);
         mBroadcastManager.sendBroadcast(intent);
-        DownloadListener listener = record.getRequest().getListener();
-        if(listener != null){
-            listener.onFailed(record,errorMsg);
-        }
-        removeTask(record);
     }
 
     public void newTaskAdd(DownloadRecord record) {
@@ -316,14 +279,15 @@ public class DownloadUtil {
         Intent intent = new Intent(ACTION_NEW_TASK_ADD);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
-        DownloadListener listener = record.getRequest().getListener();
-        if(listener != null){
-            listener.onNewTaskAdd(record);
-        }
     }
 
     public static DownloadRecord parseRecord(Intent intent) {
         String taskId = intent.getStringExtra(EXTRA_TASK_ID);
+        return sRecordMap.get(taskId);
+    }
+
+    public static DownloadRecord parseRecord(DownloadRequest request) {
+        String taskId = request.getId();
         return sRecordMap.get(taskId);
     }
 
@@ -334,15 +298,60 @@ public class DownloadUtil {
         Intent intent = new Intent(ACTION_START);
         intent.putExtra(EXTRA_TASK_ID, record.getId());
         mBroadcastManager.sendBroadcast(intent);
-        DownloadListener listener = record.getRequest().getListener();
-        if(listener != null){
-            listener.onStart(record);
-        }
     }
 
-    public void registerListener(Context context, final DownloadListener listener) {
-        if (listener == null)
-            return;
+    public void registerListener(Context context) { //绑定到每个请求
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(ACTION_NEW_TASK_ADD);
+        filter.addAction(ACTION_START);
+        filter.addAction(ACTION_FILE_LENGTH_GET);
+        filter.addAction(ACTION_PROGRESS);
+        filter.addAction(ACTION_PAUSED);
+        filter.addAction(ACTION_REENQUEUE);
+        filter.addAction(ACTION_RESUME);
+        filter.addAction(ACTION_FINISHED);
+        filter.addAction(ACTION_FAILED);
+
+        mReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                DownloadRecord record = DownloadUtil.parseRecord(intent);
+                DownloadListener listener = null;
+                if(record != null && record.getRequest() != null){
+                    listener = record.getRequest().getListener();
+                }
+                if(listener == null) return;
+
+                String action = intent.getAction();
+                if(ACTION_NEW_TASK_ADD.equals(action)){
+                    listener.onNewTaskAdd(record);
+                }else if(ACTION_START.equals(action)){
+                    listener.onStart(record);
+                }else if(ACTION_FILE_LENGTH_GET.equals(action)){
+                    listener.onFileLengthGet(record);
+                }else if(ACTION_PROGRESS.equals(action)){
+                    listener.onProgress(record);
+                }else if(ACTION_PAUSED.equals(action)){
+                    listener.onPaused(record);
+                }else if(ACTION_RESUME.equals(action)){
+                    listener.onResume(record);
+                }else if(ACTION_REENQUEUE.equals(action)){
+                    listener.onReEnqueue(record);
+                }else if(ACTION_CANCELED.equals(action)){
+                    listener.onCanceled(record);
+                }else if(ACTION_FAILED.equals(action)){
+                    listener.onFailed(record, intent.getStringExtra(EXTRA_ERROR_MSG));
+                }else if(ACTION_FINISHED.equals(action)){
+                    listener.onFinish(record);
+                }
+
+            }
+        };
+        LocalBroadcastManager.getInstance(context).registerReceiver(mReceiver, filter);
+    }
+
+    public void registerListener(Context context, final DownloadListener listener) { //设置全局的Listener
+        if(listener == null) return;
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(ACTION_NEW_TASK_ADD);

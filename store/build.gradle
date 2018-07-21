@@ -23,7 +23,7 @@ android {
             }
         }
 
-        resourcePrefix "module_store_"
+//        resourcePrefix "module_store_"
     }
 
     buildTypes {
@@ -67,5 +67,6 @@ dependencies {
     implementation project(':module_core:module_base')
     implementation project(':module_core:module_data')
     implementation project(':module_core:module_common')
+
     implementation project(':module_lib:tvrecyclerview')
 }

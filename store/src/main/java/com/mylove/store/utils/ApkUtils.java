@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2018/7/18.
@@ -14,19 +16,27 @@ import java.io.File;
 
 public class ApkUtils {
 
-    public static boolean checkInstall(Context ctx, String apk) {
-        // TODO Auto-generated method stub
-        boolean install = false;
-        PackageManager pm = ctx.getPackageManager();
-        try {
-            PackageInfo info = pm.getPackageInfo(apk, PackageManager.COMPONENT_ENABLED_STATE_DEFAULT);
-            if (info != null && info.activities.length > 0) {
-                install = true;
+    public static boolean isAppInstalled(Context context, String packageName) {
+        final PackageManager packageManager = context.getPackageManager();
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);
+        List<String> pName = new ArrayList<String>();
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                pName.add(pn);
             }
-        } catch (PackageManager.NameNotFoundException e) {
-            // TODO Auto-generated catch block
         }
-        return install;
+        return pName.contains(packageName);
+    }
+
+    public static void openApp(Context ctx, String pkgname){
+        try {
+            PackageManager pm = ctx.getPackageManager();
+            Intent intent = pm.getLaunchIntentForPackage(pkgname);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            ctx.startActivity(intent);
+        }catch (Exception e){
+        }
     }
 
     public static void install(Context ctx, String filename) {

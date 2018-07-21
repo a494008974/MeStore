@@ -21,8 +21,8 @@ import com.mylove.module_base.R;
  */
 public class ImageLoaderHelper {  //待封装
 
-    public static int IMG_LOADING = R.mipmap.ic_image_loading;
-    public static int IMG_ERROR = R.mipmap.ic_empty_picture;
+    public static int IMG_LOADING = R.drawable.rec_default;
+    public static int IMG_ERROR = R.drawable.rec_default;
 
     private static volatile ImageLoaderHelper instance;
 
@@ -46,7 +46,7 @@ public class ImageLoaderHelper {  //待封装
     private int optionsInit(int flag) {
         int sourceId = 0;
         if (flag == 0){
-            sourceId = R.mipmap.ic_image_loading ;
+            sourceId = IMG_LOADING ;
         }
         return sourceId ;
     }

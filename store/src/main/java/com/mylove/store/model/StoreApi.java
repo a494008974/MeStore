@@ -1,7 +1,10 @@
 package com.mylove.store.model;
 
-import com.mylove.store.bean.BannerData;
-import com.mylove.store.bean.BaseResponse;
+import com.mylove.store.bean.AppData;
+import com.mylove.store.bean.BaseArray;
+import com.mylove.store.bean.BaseObject;
+import com.mylove.store.bean.DetailData;
+import com.mylove.store.bean.MenuData;
 
 import io.reactivex.Observable;
 
@@ -29,9 +32,15 @@ public class StoreApi {
     }
 
 
-    public Observable<BaseResponse<BannerData>> getBanner(){
-        return storeApiService.getBanner();
+    public Observable<BaseArray<AppData>> getApp(String lang, String id){
+        return storeApiService.getApp(lang,id);
     }
 
+    public Observable<BaseArray<MenuData>> getMenu(String lang){
+        return storeApiService.getMenu(lang);
+    }
 
+    public Observable<BaseObject<DetailData>> getDetail(String lang, String id){
+        return storeApiService.getDetail(lang,id);
+    }
 }

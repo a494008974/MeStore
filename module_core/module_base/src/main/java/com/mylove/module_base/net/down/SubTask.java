@@ -46,7 +46,7 @@ public class SubTask implements Runnable {
             file.seek(startLocation);
             
             int fileLenght = record.getFileLength();
-            byte[] buffer = new byte[fileLenght / 300];
+            byte[] buffer = new byte[fileLenght / 200];
             int len;
 
             while (record.getDownloadState() == DownloadUtil.STATE_DOWNLOADING

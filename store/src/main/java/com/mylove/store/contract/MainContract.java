@@ -1,8 +1,8 @@
 package com.mylove.store.contract;
 
 import com.mylove.module_base.base.BaseContract;
-import com.mylove.store.bean.BannerData;
-import com.mylove.store.bean.BaseResponse;
+import com.mylove.store.bean.AppData;
+import com.mylove.store.bean.MenuData;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import java.util.List;
 public class MainContract implements BaseContract {
 
     public interface View extends BaseContract.BaseView{
-        void showStoreTypes(List<String> types);
-        void showStoreApps(List<String> apps);
+        void showStoreTypes(List<MenuData> types);
+        void showStoreApps(List<AppData> apps);
     }
 
     public interface Presenter extends BaseContract.BasePresenter<View>{

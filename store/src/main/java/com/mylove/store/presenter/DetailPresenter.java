@@ -1,18 +1,16 @@
 package com.mylove.store.presenter;
 
-import com.mylove.module_base.base.BaseApplication;
 import com.mylove.module_base.base.BasePresenter;
-import com.mylove.module_base.net.down.DownloadCallback;
-import com.mylove.module_base.net.down.DownloadListener;
-import com.mylove.module_base.net.down.DownloadRecord;
+import com.mylove.module_base.net.BaseObserver;
+import com.mylove.module_base.net.RxSchedulers;
 import com.mylove.module_base.net.down.DownloadRequest;
 import com.mylove.module_base.net.down.DownloadUtil;
-import com.mylove.module_base.utils.FileUtils;
-import com.mylove.module_base.utils.Md5;
-import com.mylove.store.Constanst;
+import com.mylove.store.bean.BaseObject;
+import com.mylove.store.bean.DetailData;
 import com.mylove.store.contract.DetailContract;
 import com.mylove.store.model.StoreApi;
-import com.mylove.store.utils.ApkUtils;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -23,64 +21,39 @@ import javax.inject.Inject;
 public class DetailPresenter extends BasePresenter<DetailContract.View> implements DetailContract.Presenter {
 
     private StoreApi storeApi;
-    private String taskId;
 
     @Inject
     public DetailPresenter(StoreApi storeApi) {
         this.storeApi = storeApi;
     }
 
-    public void downApp(String url){
-        DownloadListener listener = new DownloadCallback(){
-            @Override
-            public void onProgress(DownloadRecord record) {
-                super.onProgress(record);
-                mView.showProgress(record.getProgress());
-            }
-
-            @Override
-            public void onFailed(DownloadRecord record, String errMsg) {
-                super.onFailed(record, errMsg);
-                FileUtils.deleteFile(record.getFilePath());
-            }
-
-            @Override
-            public void onPaused(DownloadRecord record) {
-                super.onPaused(record);
-
-            }
-
-            @Override
-            public void onResume(DownloadRecord record) {
-                super.onResume(record);
-            }
-
-            @Override
-            public void onFinish(DownloadRecord record) {
-                super.onFinish(record);
-
-                ApkUtils.install(BaseApplication.getAppContext(),record.getFilePath());
-            }
-
-            @Override
-            public void onCanceled(DownloadRecord record) {
-                super.onCanceled(record);
-            }
-        };
-
-        DownloadRequest request = DownloadRequest.newBuilder()
-                .downloadDir(Constanst.getPath())
-                .downloadUrl(url)
-                .downloadName(DownloadUtil.getMD5(url)+".apk")
-                .downloadListener(listener)
-                .build();
-
-        taskId = request.getId();
-
+    public void downStart(DownloadRequest request){
         DownloadUtil.get().enqueue(request);
     }
-
-    public void pauseDown(){
-        DownloadUtil.get().pause(taskId);
+    public void downResume(DownloadRequest request) {
+        DownloadUtil.get().resume(request.getId());
     }
+    public void downPause(DownloadRequest request) {
+        DownloadUtil.get().pause(request.getId());
+    }
+
+    public void getStoreDetail(String lang,String id){
+        storeApi.getDetail(lang,id)
+                .compose(RxSchedulers.<BaseObject<DetailData>>applySchedulers())
+                .subscribe(new BaseObserver<BaseObject<DetailData>>() {
+                    @Override
+                    public void onSuccess(BaseObject<DetailData> detailData) {
+                        if(detailData != null && detailData.getData() != null){
+                            mView.showDetail(detailData.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        System.out.println("detailData onFail !"+e.getMessage());
+                    }
+                });
+    }
+
+
 }

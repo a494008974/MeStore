@@ -1,18 +1,13 @@
 package com.mylove.store.presenter;
 
-import android.os.Handler;
-
 import com.mylove.module_base.base.BasePresenter;
 import com.mylove.module_base.net.BaseObserver;
 import com.mylove.module_base.net.RxSchedulers;
-import com.mylove.store.ItemDatas;
-import com.mylove.store.bean.BannerData;
-import com.mylove.store.bean.BaseResponse;
+import com.mylove.store.bean.AppData;
+import com.mylove.store.bean.BaseArray;
+import com.mylove.store.bean.MenuData;
 import com.mylove.store.contract.MainContract;
 import com.mylove.store.model.StoreApi;
-
-import java.util.Arrays;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -29,34 +24,41 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         this.storeApi = storeApi;
     }
 
-    public void getBanner(){
-        storeApi.getBanner()
-                .compose(RxSchedulers.<BaseResponse<BannerData>>applySchedulers())
-                .subscribe(new BaseObserver<BaseResponse<BannerData>>() {
+    public void getStoreTypes(String lang){
+        storeApi.getMenu(lang)
+                .compose(RxSchedulers.<BaseArray<MenuData>>applySchedulers())
+                .subscribe(new BaseObserver<BaseArray<MenuData>>() {
                     @Override
-                    public void onSuccess(BaseResponse<BannerData> bannerDataBaseResponse) {
-//                        mView.showResult(bannerDataBaseResponse);
+                    public void onSuccess(BaseArray<MenuData> menuDataBaseResponse) {
+                        if(menuDataBaseResponse != null){
+                            mView.showStoreTypes(menuDataBaseResponse.getData());
+                        }
                     }
 
                     @Override
                     public void onFail(Throwable e) {
-                        System.out.println("Banner onFail !");
+                        System.out.println("Menu onFail !"+e.getMessage());
+                    }
+                });
+
+    }
+
+    public void getStoreApps(String lang,String id){
+        storeApi.getApp(lang,id)
+                .compose(RxSchedulers.<BaseArray<AppData>>applySchedulers())
+                .subscribe(new BaseObserver<BaseArray<AppData>>() {
+                    @Override
+                    public void onSuccess(BaseArray<AppData> appDataBaseResponse) {
+                        if(appDataBaseResponse != null){
+                            mView.showStoreApps(appDataBaseResponse.getData());
+                        }
+                    }
+
+                    @Override
+                    public void onFail(Throwable e) {
+                        System.out.println("App onFail !"+e.getMessage());
                     }
                 });
     }
 
-    public void getStoreTypes(){
-        mView.showStoreTypes(Arrays.asList(ItemDatas.types));
-    }
-
-    public void getStoreApps(final String type, final int count){
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                List<String> apps = ItemDatas.getDatas(type,count);
-                mView.showStoreApps(apps);
-            }
-        },500);
-
-    }
 }

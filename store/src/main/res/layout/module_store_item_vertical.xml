@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_80"
+    android:layout_height="@dimen/dp_70"
     android:focusable="true"
     android:clickable="true"
     android:focusableInTouchMode="true"
-    android:layout_margin="@dimen/dp_20"
+    android:layout_margin="@dimen/dp_10"
     android:background="@drawable/module_store_selector_list_item_background">
     <TextView
         android:id="@+id/store_list_title"
@@ -15,4 +15,4 @@
         android:textSize="@dimen/sp_22"
         android:gravity="center"
         />
-</RelativeLayout>
+</FrameLayout>

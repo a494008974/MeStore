@@ -11,7 +11,7 @@ import java.io.File;
 
 public class Constanst {
 
-    public static String DIRECTORY = "store_down";
+    public static String DIRECTORY = "storedown";
     public static String downPath;
 
     public static String getPath(){

@@ -22,8 +22,8 @@
                 android:layout_height="@dimen/dp_150"
                 android:layout_marginRight="@dimen/dp_20"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:background="@drawable/module_store_grid_item_background"/>
+                android:src="@drawable/module_store_grid_item_background"
+                android:layout_marginBottom="@dimen/dp_10"/>
             <RelativeLayout
                 android:layout_toRightOf="@id/app_icon"
                 android:layout_marginRight="@dimen/dp_20"
@@ -34,89 +34,86 @@
                     android:id="@+id/app_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:textSize="@dimen/sp_32"
-                    android:text="@string/module_store_app_name"/>
+                    android:layout_marginBottom="@dimen/dp_20"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:textSize="@dimen/sp_32"/>
                 <LinearLayout
                     android:id="@+id/app_info_one"
                     android:layout_below="@id/app_title"
-                    android:layout_marginBottom="@dimen/dp_10"
+                    android:layout_marginBottom="@dimen/dp_20"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp_20"
-                        android:drawableLeft="@drawable/module_store_item_activated"
-                        android:text="@string/module_store_app_name"/>
+                        style="@style/module_store_detail_tv_style"
+                        android:drawableLeft="@drawable/attes_v"
+                        android:text="@string/module_store_company"/>
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/module_store_item_activated"
-                        android:text="@string/module_store_app_name"/>
+                        style="@style/module_store_detail_tv_style"
+                        android:drawableLeft="@drawable/attes_s"
+                        android:text="@string/module_store_saft"/>
+                    <TextView
+                        android:id="@+id/store_detail_count"
+                        style="@style/module_store_detail_tv_style"
+                        android:drawableLeft="@drawable/module_store_item_activated"/>
+                    <TextView
+                        android:id="@+id/store_detail_version"
+                        style="@style/module_store_detail_tv_style"
+                        android:drawableLeft="@drawable/module_store_item_activated"/>
                 </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/app_info_two"
-                    android:layout_below="@id/app_info_one"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp_20"
-                        android:drawableLeft="@drawable/module_store_item_activated"
-                        android:text="@string/module_store_app_name"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp_20"
-                        android:drawableLeft="@drawable/module_store_item_activated"
-                        android:text="@string/module_store_app_name"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/dp_20"
-                        android:drawableLeft="@drawable/module_store_item_activated"
-                        android:text="@string/module_store_app_name"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/module_store_item_activated"
-                        android:text="@string/module_store_app_name"/>
-                </LinearLayout>
+
             </RelativeLayout>
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:gravity="center_vertical">
-            <Button
+            <FrameLayout
                 android:id="@+id/store_down"
                 android:layout_width="@dimen/dp_200"
-                android:layout_height="@dimen/dp_60"
-                android:textSize="@dimen/sp_24"
-                android:text="@string/module_store_app_down"
-                android:background="@drawable/module_store_selector_down"/>
+                android:layout_height="@dimen/dp_50"
+                android:background="@drawable/module_store_selector_down"
+                android:focusable="true"
+                android:clickable="true"
+                android:focusableInTouchMode="true"
+                android:descendantFocusability="blocksDescendants">
+                <ProgressBar
+                    android:id="@+id/store_down_progress"
+                    style="@style/module_store_progressbar_horizontal"
+                    android:max="100"
+                    android:progress="0"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </ProgressBar>
+                <TextView
+                    android:id="@+id/store_progress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="@dimen/sp_24"
+                    />
+            </FrameLayout>
         </RelativeLayout>
         <RelativeLayout
+            android:id="@+id/store_detail_context"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1.8">
+            android:layout_weight="1.8"
+            android:focusableInTouchMode="true"
+            android:focusable="true"
+            android:clickable="true">
             <TextView
-                android:id="@+id/tv_result_detail"
+                android:id="@+id/store_detail_info"
                 android:padding="@dimen/dp_20"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
-                android:clickable="true"
-                android:background="@drawable/module_store_selector_down"
-                android:text="store detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detail"/>
+                android:textSize="@dimen/sp_18"
+                android:duplicateParentState="true"
+                android:background="@drawable/module_store_selector_down"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -124,16 +121,13 @@
             android:layout_marginTop="@dimen/dp_10"
             android:paddingBottom="@dimen/dp_10"
             android:layout_weight="2.2">
-            <TextView
-                android:id="@+id/tv_result_picture"
-                android:padding="@dimen/dp_20"
+            <com.owen.tvrecyclerview.widget.TvRecyclerView
+                android:id="@+id/store_detail_pic"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
-                android:clickable="true"
-                android:background="@drawable/module_store_selector_down"
-                android:text="store detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detailstore detail"/>
+                android:orientation="horizontal"
+                app:tv_isMenu="true"
+                app:tv_layoutManager="ListLayoutManager"/>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

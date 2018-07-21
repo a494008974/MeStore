@@ -21,6 +21,7 @@ public class StoreModule {
     StoreApi provideStoreApi(OkHttpClient.Builder builder) {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
+
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());

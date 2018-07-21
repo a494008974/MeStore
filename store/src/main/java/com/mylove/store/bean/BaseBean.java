@@ -6,10 +6,9 @@ import java.util.List;
  * Created by zhou on 2018/7/15.
  */
 
-public class BaseResponse<T> {
+public class BaseBean {
     private int errorCode;
     private String errorMsg;
-    private List<T> data;
 
     public int getErrorCode() {
         return errorCode;
@@ -27,11 +26,4 @@ public class BaseResponse<T> {
         this.errorMsg = errorMsg;
     }
 
-    public List<T> getData() {
-        return data;
-    }
-
-    public void setData(List<T> data) {
-        this.data = data;
-    }
 }
