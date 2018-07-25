@@ -3,11 +3,13 @@ package com.mylove.store;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ViewFlipper;
 
 import com.mylove.module_base.helper.ImageLoaderHelper;
 
@@ -43,13 +45,26 @@ public class ShowPic extends DialogFragment {
         Bundle bundle = getArguments();
         currentSel = bundle.getInt("CURRENTSEL");
         datas = bundle.getStringArrayList("DATAS");
-
         View view = inflater.inflate(R.layout.module_store_show_pic,container);
 
-        ImageView pic = (ImageView) view.findViewById(R.id.store_detail_show);
+        ViewFlipper viewFlipper = (ViewFlipper)view.findViewById(R.id.show_detail_view_flipper);
+
         if (datas != null) {
-            ImageLoaderHelper.getInstance().load(getActivity(),datas.get(currentSel),pic);
+            ImageView imageView = new ImageView(getActivity());
+            ImageLoaderHelper.getInstance().load(getActivity(),datas.get(currentSel),imageView);
+            viewFlipper.addView(imageView);
+            for (int i=0; i<datas.size(); i++){
+                if (i == currentSel) continue;
+                imageView = new ImageView(getActivity());
+                ImageLoaderHelper.getInstance().load(getActivity(),datas.get(i),imageView);
+                viewFlipper.addView(imageView);
+            }
         }
+        viewFlipper.setInAnimation(getActivity(),android.R.anim.slide_in_left);
+        viewFlipper.setOutAnimation(getActivity(),android.R.anim.slide_out_right);
+        viewFlipper.setFlipInterval(3000);
+
+        viewFlipper.startFlipping();
 
         return view;
     }

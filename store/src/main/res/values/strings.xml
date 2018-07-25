@@ -12,4 +12,10 @@
     <string name="module_store_detail_info">
         <b>软件简介: </b>%s
     </string>
+
+
+    <string name="module_store_app_search">Search</string>
+    <string name="module_store_app_default">默认</string>
+    <string name="module_store_app_recommand">最新</string>
+    <string name="module_store_app_record">%s/%s</string>
 </resources>

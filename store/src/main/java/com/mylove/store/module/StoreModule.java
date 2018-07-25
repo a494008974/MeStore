@@ -3,6 +3,7 @@ package com.mylove.store.module;
 import com.mylove.module_base.base.BaseApplication;
 import com.mylove.store.model.StoreApi;
 import com.mylove.store.model.StoreApiService;
+import com.mylove.store.utils.JsonConverterFactory;
 
 import dagger.Module;
 import dagger.Provides;
@@ -21,8 +22,8 @@ public class StoreModule {
     StoreApi provideStoreApi(OkHttpClient.Builder builder) {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(JsonConverterFactory.create())
+//                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
 

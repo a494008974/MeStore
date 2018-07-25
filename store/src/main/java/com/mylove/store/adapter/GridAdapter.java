@@ -29,7 +29,6 @@ public class GridAdapter extends CommonRecyclerViewAdapter<AppData> {
     @Override
     public void onBindItemHolder(CommonRecyclerViewHolder helper, AppData item, int position) {
         helper.getHolder().setText(R.id.app_grid_title, item.getName());
-        System.out.println(item.getIcon());
         ImageLoaderHelper.getInstance().load(mContext,item.getIcon(),(ImageView) helper.getHolder().getView(R.id.app_grid_icon));
         helper.getHolder().setText(R.id.app_grid_version,item.getVersion());
     }

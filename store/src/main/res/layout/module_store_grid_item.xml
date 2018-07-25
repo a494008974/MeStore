@@ -44,6 +44,7 @@
         android:paddingLeft="@dimen/dp_20"
         android:paddingRight="@dimen/dp_20"
         android:paddingTop="@dimen/dp_5"
+        android:singleLine="true"
         android:text="@string/module_store_app_name"
         android:textSize="@dimen/sp_16"
         app:layout_constraintBottom_toBottomOf="@+id/app_grid_icon"

@@ -5,7 +5,9 @@ import com.mylove.module_base.net.BaseObserver;
 import com.mylove.module_base.net.RxSchedulers;
 import com.mylove.store.bean.AppData;
 import com.mylove.store.bean.BaseArray;
+import com.mylove.store.bean.BaseObject;
 import com.mylove.store.bean.MenuData;
+import com.mylove.store.bean.PageData;
 import com.mylove.store.contract.MainContract;
 import com.mylove.store.model.StoreApi;
 
@@ -43,14 +45,14 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
 
     }
 
-    public void getStoreApps(String lang,String id){
-        storeApi.getApp(lang,id)
-                .compose(RxSchedulers.<BaseArray<AppData>>applySchedulers())
-                .subscribe(new BaseObserver<BaseArray<AppData>>() {
+    public void getStoreApps(String lang,String id,String sort,String page,String pageSize){
+        storeApi.getApp(lang,id,sort,page,pageSize)
+                .compose(RxSchedulers.<BaseObject<PageData>>applySchedulers())
+                .subscribe(new BaseObserver<BaseObject<PageData>>() {
                     @Override
-                    public void onSuccess(BaseArray<AppData> appDataBaseResponse) {
-                        if(appDataBaseResponse != null && mView != null){
-                            mView.showStoreApps(appDataBaseResponse.getData());
+                    public void onSuccess(BaseObject<PageData> pageData) {
+                        if(pageData != null && mView != null){
+                            mView.showStoreApps(pageData.getData());
                         }
                     }
 

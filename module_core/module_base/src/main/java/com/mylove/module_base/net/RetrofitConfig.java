@@ -4,19 +4,24 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.mylove.module_base.base.BaseApplication;
+import com.mylove.module_base.utils.AesHelper;
 import com.mylove.module_base.utils.NetUtils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
 
 import okhttp3.CacheControl;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okio.Buffer;
+import okio.BufferedSource;
 
 /**
  * desc:
@@ -97,20 +102,40 @@ public class RetrofitConfig {
 
         @Override
         public Response intercept(Chain chain) throws IOException {
-            final Request request = chain.request();
-            Buffer requestBuffer = new Buffer();
-            if (request.body() != null) {
-                request.body().writeTo(requestBuffer);
-            } else {
-                Log.d("LogTAG", "request.body() == null");
+            Request request = chain.request();
+            String url = request.url().toString();
+            Response response = chain.proceed(request);
+            System.out.println("url = " + url);
+            if(url.contains("bsw-inc.com")){
+                response = decrypt(response);
+                System.out.println("decrypt = " + response.body().string());
             }
-            //打印url信息
-            Log.w(TAG, "dataDeCoderInterceptor: " + request.url() + (request.body() != null ? "?" + _parseParams(request.body(), requestBuffer) : ""));
-            final Response response = chain.proceed(request);
-
             return response;
         }
     };
+
+    private static Response decrypt(Response response) throws IOException {
+        if (response.isSuccessful()) {
+            //the response data
+            ResponseBody body = response.body();
+            BufferedSource source = body.source();
+            source.request(Long.MAX_VALUE); // Buffer the entire body.
+            Buffer buffer = source.buffer();
+            Charset charset = Charset.defaultCharset();
+            MediaType contentType = body.contentType();
+            if (contentType != null) {
+                charset = contentType.charset(charset);
+            }
+            String sour = buffer.clone().readString(charset);
+            //解密方法，需要自己去实现
+            String bodyString = AesHelper.AES_Decrypt("1234567890123456",sour);
+            System.out.println("bodyString = " + bodyString);
+            ResponseBody responseBody = ResponseBody.create(contentType, bodyString);
+            response = response.newBuilder().body(responseBody).build();
+        }
+        return response;
+    }
+
 
     @NonNull
     private static String _parseParams(RequestBody body, Buffer requestBuffer) throws UnsupportedEncodingException {

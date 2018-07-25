@@ -16,8 +16,8 @@
     <color name="module_store_item_default_color">#00000000</color>
 
     <!-- background-->
-    <color name="module_store_color_blue">#571aa6</color>
-    <color name="module_store_color_enblue">#470c86</color>
+    <color name="module_store_color_blue">#1a46a6</color>
+    <color name="module_store_color_enblue">#0c2886</color>
 
 
 </resources>

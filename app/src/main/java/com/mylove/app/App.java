@@ -1,9 +1,5 @@
-package com.mylove.mmodule;
+package com.mylove.app;
 
-import android.app.Application;
-import android.support.multidex.MultiDex;
-
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.mylove.module_base.base.BaseApplication;
 
 

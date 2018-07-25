@@ -16,6 +16,7 @@ public class RouterURL {
     public static final String StoreSplash = "/store/module/SplashActivity";
     public static final String StoreMain = "/store/module/MainActivity";
     public static final String StoreDetail = "/store/module/DetailActivity";
+    public static final String StoreSearch = "/store/module/SearchActivity";
 
 
 }

@@ -281,9 +281,6 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                 public void onFinish(DownloadRecord record) {
                     STORE_STATUS = STORE_STATUS_INSTALL;
                     showStatu();
-
-                    System.out.println("STORE_STATUS_INSTALL md5 ==== "+Md5.getFileMD5(record.getFilePath()));
-
                     ApkUtils.install(DetailActivity.this,record.getFilePath());
                 }
 
@@ -298,9 +295,6 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                     .downloadListener(downloadListener)
                     .build();
         }
-        System.out.println("md5 ==== "+detailData.getMd5());
-
-
 
         storeDetailInfo.setText(String.format(getResources().getString(R.string.module_store_detail_info),detailData.getApp_detail()));
 
@@ -315,7 +309,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         super.onDestroy();
         if(request != null) {
             DownloadUtil.get().removeTask(request);
-            if(STORE_STATUS != STORE_STATUS_INSTALL || STORE_STATUS != STORE_STATUS_RUN){
+            if(STORE_STATUS != STORE_STATUS_INSTALL){
                 FileUtils.deleteFile(fileName);
             }
         }

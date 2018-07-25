@@ -12,12 +12,11 @@ import java.io.File;
 public class Constanst {
 
     public static String DIRECTORY = "storedown";
-    public static String downPath;
+    public static String SPLASHNAME = "splash";
 
     public static String getPath(){
-        if(downPath != null){
-            return downPath;
-        }
+        String downPath = null;
+
         if (ExistSDCard()){
             downPath = android.os.Environment.getExternalStorageDirectory().getPath() + File.separator + DIRECTORY;
         }else{
@@ -29,6 +28,7 @@ public class Constanst {
         }
         return downPath;
     }
+
     public static boolean ExistSDCard() {
         if (android.os.Environment.getExternalStorageState().equals(
                 android.os.Environment.MEDIA_MOUNTED)) {
@@ -36,4 +36,10 @@ public class Constanst {
         } else
             return false;
     }
+
+    public static String getSplashPath(){
+        String splashPath = BaseApplication.getAppContext().getFilesDir().getPath() + File.separator + SPLASHNAME;;
+        return splashPath;
+    }
+
 }

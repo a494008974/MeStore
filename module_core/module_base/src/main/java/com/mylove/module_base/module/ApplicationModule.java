@@ -47,7 +47,7 @@ public class ApplicationModule {
                 .addInterceptor(RetrofitConfig.sLoggingInterceptor)
                 .addInterceptor(RetrofitConfig.sRewriteCacheControlInterceptor)
                 .addNetworkInterceptor(RetrofitConfig.sRewriteCacheControlInterceptor)
-                .addInterceptor(RetrofitConfig.dataDeCoderInterceptor)
+//                .addInterceptor(RetrofitConfig.dataDeCoderInterceptor)
                 .connectTimeout(10, TimeUnit.SECONDS);
     }
 

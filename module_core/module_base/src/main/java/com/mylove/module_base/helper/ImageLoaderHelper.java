@@ -10,6 +10,8 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.mylove.module_base.R;
 
+import java.io.File;
+
 /**
  * 参考设置：http://www.tuicool.com/articles/3Af6Zby
  *DiskCacheStrategy.NONE:什么都不缓存
@@ -62,11 +64,8 @@ public class ImageLoaderHelper {  //待封装
                     .diskCacheStrategy(DiskCacheStrategy.ALL);  //图片缓存
             Glide.with(context).load(url).apply(options).into(iv);
         }
-
     }
     public void loadV2(Context context, String url, ImageView iv) {
-
-
         if (iv != null && context != null && url != null) {
             RequestOptions options = new RequestOptions()
                     .placeholder(IMG_LOADING)
@@ -77,8 +76,6 @@ public class ImageLoaderHelper {  //待封装
     }
 
     public void load(Context context, Uri url, ImageView iv) {
-
-
         if (iv != null) {
             RequestOptions options = new RequestOptions()
                     .placeholder(IMG_LOADING)
@@ -86,7 +83,15 @@ public class ImageLoaderHelper {  //待封装
                     .diskCacheStrategy(DiskCacheStrategy.ALL);
             Glide.with(context).load(url).apply(options).into(iv);
         }
+    }
 
+    public void load(Context context, File file, ImageView iv) {
+        if (iv != null && file != null) {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL);
+            Glide.with(context).load(file).apply(options).into(iv);
+        }
     }
 
     public void load(Context context, String url, ImageView iv, int radius) {

@@ -3,6 +3,7 @@ package com.mylove.store.component;
 import com.mylove.module_base.module.ApplicationModule;
 import com.mylove.store.DetailActivity;
 import com.mylove.store.MainActivity;
+import com.mylove.store.SearchActivity;
 import com.mylove.store.module.StoreModule;
 import com.mylove.store.model.StoreApi;
 
@@ -20,6 +21,8 @@ public interface StoreComponent {
     void inject(MainActivity mainActivity);
 
     void inject(DetailActivity detailActivity);
+
+    void inject(SearchActivity searchActivity);
 
     StoreApi getStoreApi();
 }
