@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
+import android.support.v4.content.FileProvider;
 
 import com.mylove.module_base.utils.FileUtils;
 
@@ -42,17 +44,19 @@ public class ApkUtils {
     }
 
     public static void install(Context ctx, String filename) {
-        if(FileUtils.isFileExists(filename)){
-            try {
-                Uri uri = Uri.fromFile(new File(filename));
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.setDataAndType(uri, "application/vnd.android.package-archive");
-                ctx.startActivity(intent);
-            }catch (Exception e){
-
-            }
+        if(!FileUtils.isFileExists(filename)) return;
+        File apk = new File(filename);
+        Uri data;
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            data = FileProvider.getUriForFile(ctx, "com.mylove.store.install", apk);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        } else {
+            data = Uri.fromFile(apk);
         }
+        intent.setDataAndType(data, "application/vnd.android.package-archive");
+        ctx.startActivity(intent);
     }
 
     public static void uninstall(Context ctx, String apk) {

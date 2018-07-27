@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import com.mylove.store.contract.MainContract;
 import com.mylove.store.model.StoreApiService;
 import com.mylove.store.module.StoreModule;
 import com.mylove.store.presenter.MainPresenter;
+import com.mylove.store.update.Update;
 import com.owen.tvrecyclerview.widget.SimpleOnItemListener;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 
@@ -242,6 +244,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void initData() {
         mPresenter.getStoreTypes(LocaleHelper.getLanguage(this).getLanguage());
+        Update update = new Update(this,getFragmentManager());
+        update.checkUpdate();
     }
 
     @Override

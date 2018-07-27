@@ -2,15 +2,19 @@ package com.mylove.module_base.helper;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.signature.MediaStoreSignature;
 import com.mylove.module_base.R;
 
 import java.io.File;
+import java.security.MessageDigest;
 
 /**
  * 参考设置：http://www.tuicool.com/articles/3Af6Zby
@@ -85,11 +89,13 @@ public class ImageLoaderHelper {  //待封装
         }
     }
 
-    public void load(Context context, File file, ImageView iv) {
+    public void load(Context context, File file, ImageView iv,String signature) {
         if (iv != null && file != null) {
+
             RequestOptions options = new RequestOptions()
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL);
+                    .signature(new StringSignature(signature))
+                    .centerCrop();
+
             Glide.with(context).load(file).apply(options).into(iv);
         }
     }

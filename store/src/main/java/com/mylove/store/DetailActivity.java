@@ -237,11 +237,6 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
                     mPresenter.downStart(request);
                 }
             }else{
-    //            if(record.getDownloadState() == DownloadUtil.STATE_PAUSED){
-    //                mPresenter.downResume(request);           //恢复
-    //            }else if(record.getDownloadState() == DownloadUtil.STATE_DOWNLOADING){
-    //                mPresenter.downPause(request);           //暂停
-    //            }else
                 if(record.getDownloadState() == DownloadUtil.STATE_FINISHED){
                     if(detailData != null && ApkUtils.isAppInstalled(DetailActivity.this,detailData.getPackagename())){
                         ApkUtils.openApp(DetailActivity.this,detailData.getPackagename());

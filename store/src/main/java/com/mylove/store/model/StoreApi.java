@@ -1,6 +1,5 @@
 package com.mylove.store.model;
 
-import com.mylove.store.bean.AppData;
 import com.mylove.store.bean.BaseArray;
 import com.mylove.store.bean.BaseObject;
 import com.mylove.store.bean.DetailData;

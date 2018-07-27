@@ -40,11 +40,8 @@ public class LocaleHelper {
     public static Locale getLanguage(Context context) {
 //        String lang = getPersistedData(context, Locale.getDefault());
 //        return new Locale(lang);
-        //埃及语言
-        //Locale locale = new Locale("ar","EG");
         Locale locale = new Locale("en","");
-//        Locale.getDefault();
-        return getPersistedLocal(context, locale);
+        return getPersistedLocal(context, Locale.getDefault());
     }
 
     public static Context setLocale(Context context, Locale locale) {

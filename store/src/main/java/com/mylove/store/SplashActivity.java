@@ -23,6 +23,7 @@ import com.mylove.module_common.RouterURL;
 import com.mylove.store.bean.BaseObject;
 import com.mylove.store.bean.SplashData;
 import com.mylove.store.model.SplashApiService;
+import com.mylove.store.presenter.MainPresenter;
 import com.mylove.store.utils.JsonConverterFactory;
 
 import java.io.File;
@@ -55,7 +56,8 @@ public class SplashActivity extends BaseActivity{
     public void bindView(View view, Bundle savedInstanceState) {
 
         if(FileUtils.isFileExists(Constanst.getSplashPath())){
-            ImageLoaderHelper.getInstance().load(this,new File(Constanst.getSplashPath()),splashImg);
+            String md5 = (String) SPUtil.get(BaseApplication.getAppContext(),"SplashUrl","");
+            ImageLoaderHelper.getInstance().load(this,new File(Constanst.getSplashPath()),splashImg,md5);
         }else{
             splashImg.setImageResource(R.drawable.splash);
         }
@@ -85,8 +87,10 @@ public class SplashActivity extends BaseActivity{
                     @Override
                     public void onSuccess(BaseObject<SplashData> splashData) {
                         if (splashData != null && splashData.getData() != null){
+                            System.out.println(splashData.getData().getImg());
                             String md5Splash = Md5.MD5Encode(splashData.getData().getImg(),null);
                             String splash = (String) SPUtil.get(BaseApplication.getAppContext(),"SplashUrl","");
+                            System.out.println("md5Splash = "+md5Splash+"\n splash = "+splash);
                             if(!splash.equals(md5Splash)){
                                 SPUtil.put(BaseApplication.getAppContext(),"SplashUrl", md5Splash);
                                 SPUtil.put(BaseApplication.getAppContext(),"delayMillis", Long.valueOf(splashData.getData().getTime()));

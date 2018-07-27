@@ -18,4 +18,8 @@
     <string name="module_store_app_default">默认</string>
     <string name="module_store_app_recommand">最新</string>
     <string name="module_store_app_record">%s/%s</string>
+
+    <string name="module_store_update_version">版本升级</string>
+    <string name="module_store_update_btn_ok">升级</string>
+    <string name="module_store_update_btn_cancle">忽略</string>
 </resources>
