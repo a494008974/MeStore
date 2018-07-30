@@ -34,7 +34,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.View> implemen
 
                     @Override
                     public void onFail(Throwable e) {
-                        System.out.println("App onFail !"+e.getMessage());
+                        System.out.println("Search onFail !"+e.getMessage());
                     }
                 });
     }

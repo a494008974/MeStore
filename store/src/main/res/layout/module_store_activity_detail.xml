@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/module_store_background"
+    android:background="@drawable/module_store_search_background"
     tools:context="com.mylove.store.DetailActivity">
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                 android:id="@+id/store_down"
                 android:layout_width="@dimen/dp_200"
                 android:layout_height="@dimen/dp_50"
-                android:background="@drawable/module_store_selector_down"
+                android:background="@drawable/module_store_grid_item_background"
                 android:focusable="true"
                 android:clickable="true"
                 android:focusableInTouchMode="true"
@@ -113,7 +113,7 @@
                 android:layout_height="match_parent"
                 android:textSize="@dimen/sp_18"
                 android:duplicateParentState="true"
-                android:background="@drawable/module_store_selector_down"/>
+                android:background="@drawable/module_store_grid_item_background"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"

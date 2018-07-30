@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_150"
+    android:layout_height="@dimen/dp_160"
     android:background="@drawable/module_store_grid_item_background"
     android:clickable="true"
     android:focusable="true"
@@ -12,8 +12,8 @@
 
     <ImageView
         android:id="@+id/app_grid_icon"
-        android:layout_width="@dimen/dp_110"
-        android:layout_height="@dimen/dp_110"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_120"
         android:layout_marginRight="@dimen/dp_10"
         android:src="@drawable/module_store_grid_item_background" />
 

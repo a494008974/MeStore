@@ -139,7 +139,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         storeSort.setAdapter(mSortAdapter);
         storeSort.setVisibility(View.INVISIBLE);
 
-        storeApps.setSpacingWithMargins(10, 10);
+        storeApps.setSpacingWithMargins(20, 10);
         mGridAdapter = new GridAdapter(this);
         mGridAdapter.setDatas(appDatas);
         storeApps.setAdapter(mGridAdapter);

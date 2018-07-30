@@ -16,8 +16,12 @@
     <color name="module_store_item_default_color">#00000000</color>
 
     <!-- background-->
-    <color name="module_store_color_blue">#1a46a6</color>
-    <color name="module_store_color_enblue">#0c2886</color>
+    <color name="module_store_color_black">#020202</color>
+    <color name="module_store_color_enblack">#252b30</color>
 
+    <color name="module_store_color_blue">#0234bc</color>
+    <color name="module_store_color_enblue">#102e7e</color>
 
+    <color name="module_store_color_red">#b31217</color>
+    <color name="module_store_color_grid_gray">#37474f</color>
 </resources>

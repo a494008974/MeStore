@@ -6,7 +6,7 @@
     android:focusable="true"
     android:clickable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/module_store_grid_item_background">
+    android:background="@color/module_store_color_blue">
     <ImageView
         android:id="@+id/store_detail_tv_pic"
         android:scaleType="centerCrop"
