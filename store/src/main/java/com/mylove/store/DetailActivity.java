@@ -157,7 +157,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         storeDetailPic.setOnItemListener(new SimpleOnItemListener() {
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                onMoveFocusBorder(itemView, 1.0f, 0);
+                onMoveFocusBorder(itemView, 1.0f, 8);
             }
 
             @Override

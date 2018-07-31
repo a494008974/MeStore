@@ -100,7 +100,7 @@ public class SplashActivity extends BaseActivity{
                     }
                     @Override
                     public void onFail(Throwable e) {
-
+                        SPUtil.put(BaseApplication.getAppContext(),"SplashUrl", "");
                     }
                 });
     }

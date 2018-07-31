@@ -72,6 +72,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private StringAdapter mSortAdapter,mOtherAdapter;
     private CommonRecyclerViewAdapter mGridAdapter;
 
+    private float scale = 1.0f;
     private List<MenuData> typeDatas = new ArrayList<MenuData>();
     private List<AppData> appDatas = new ArrayList<AppData>();
 
@@ -150,7 +151,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
                 mHandler.removeMessages(STORE_APPS);
-                onMoveFocusBorder(itemView, 1.0f, 40);
+                onMoveFocusBorder(itemView, scale, 40);
                 if(position != cPosition){
                     selPosition = position;
                     showMore = false;
@@ -169,7 +170,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         storeTool.setOnItemListener(new SimpleOnItemListener() {
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                onMoveFocusBorder(itemView, 1.0f, 40);
+                onMoveFocusBorder(itemView, scale, 40);
             }
 
             @Override
@@ -185,7 +186,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
                 mHandler.removeMessages(STORE_APPS);
-                onMoveFocusBorder(itemView, 1.0f, 8);
+                onMoveFocusBorder(itemView, scale, 8);
                 String curSort = sortValue[position % sortValue.length];
                 if(!sort.equals(curSort)){
                     sort = curSort;
@@ -204,7 +205,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                onMoveFocusBorder(itemView, 1.0f, 8);
+                onMoveFocusBorder(itemView, scale, 8);
                 if(mPageData != null){
                     storeMainRecord.setText(String.format(getString(R.string.module_store_app_record),String.valueOf(position + 1),String.valueOf(mPageData.getTotalCount())));
                     //加载更多
