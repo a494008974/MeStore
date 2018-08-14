@@ -6,11 +6,10 @@ package com.mylove.module_common;
 
 public class RouterURL {
 
-    public static final String ModuleAHome = "/modulea/module/HomeActivity";
-    public static final String ModuleASplash = "/modulea/module/SplashActivity";
-
-    public static final String ModuleBMain = "/moduleb/module/MainActivity";
-
+    //launcher
+    public static final String ModuleAHome = "/launcher/module/HomeActivity";
+    public static final String ModuleASplash = "/launcher/module/SplashActivity";
+    public static final String ModuleBMain = "/launcher/module/MainActivity";
 
     //store
     public static final String StoreSplash = "/store/module/SplashActivity";

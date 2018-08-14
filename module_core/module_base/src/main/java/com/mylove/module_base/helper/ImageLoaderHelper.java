@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.Key;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
@@ -114,7 +115,10 @@ public class ImageLoaderHelper {  //待封装
                     .transition(new DrawableTransitionOptions().crossFade(200))
                     .apply(options).into(iv);
         }
-
     }
 
+    public void download(Context context, String url){
+        RequestBuilder<File> requestBuilder = Glide.with(context).download(url);
+        requestBuilder.submit();
+    }
 }

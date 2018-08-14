@@ -7,6 +7,7 @@ import android.os.Build;
 
 import com.mylove.module_base.base.BaseApplication;
 import com.mylove.module_base.utils.FileUtils;
+import com.mylove.store.model.UpdateApiService;
 
 import java.io.File;
 
@@ -20,7 +21,7 @@ public class Constanst {
     public static String SPLASHNAME = "splash";
 
     public static final String UMENG_CHANNEL = "UMENG_CHANNEL";
-    public static final String UPDATE_URL = "http://stat.yunos-tv.com/index.php/update/app?data=%s";
+    public static final String UPDATE_URL = UpdateApiService.sUpdate + "index.php/update/app?data=%s";
 
     public static String getUpdateUrl(String data){
         return String.format(UPDATE_URL, data);

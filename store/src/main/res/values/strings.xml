@@ -1,5 +1,5 @@
 <resources>
-    <string name="module_store_app_name">MeStore</string>
+    <string name="module_store_app_name">AppStore</string>
 
     <string name="module_store_saft">Security</string>
     <string name="module_store_company">Official</string>
@@ -7,7 +7,7 @@
     <string name="module_store_app_ver">Version: %s</string>
 
     <string name="module_store_run">Run</string>
-    <string name="module_store_install">Installation</string>
+    <string name="module_store_install">Install</string>
     <string name="module_store_down">Download</string>
     <string name="module_store_detail_info">
         <b>Software Introduction: </b>%s

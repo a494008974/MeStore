@@ -34,6 +34,6 @@ public class DesHelper {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		return "fail";
+		return "";
 	}
 }

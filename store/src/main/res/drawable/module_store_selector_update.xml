@@ -22,6 +22,6 @@
     <item android:state_focused="true"
           android:drawable="@drawable/module_store_item_activated"/>
     
-    <item android:drawable="@drawable/module_store_update_focused"/>
+    <item android:drawable="@color/module_store_item_default_color"/>
 
 </selector>

@@ -13,19 +13,21 @@
 
     <ImageView
         android:id="@+id/store_list_icon"
-        android:layout_width="@dimen/dp_70"
-        android:layout_height="@dimen/dp_70"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
         android:padding="@dimen/dp_10"
         android:scaleType="fitCenter"
+        android:layout_gravity="center_vertical"
         android:alpha="0.6"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:src="@drawable/jp_search_icon"/>
+        android:layout_marginLeft="@dimen/dp_10"/>
 
     <TextView
         android:id="@+id/store_list_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="@dimen/sp_22"
+        android:textSize="@dimen/sp_18"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:duplicateParentState="true"
         android:singleLine="true"
         android:gravity="left|center"
         />

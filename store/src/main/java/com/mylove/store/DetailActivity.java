@@ -230,6 +230,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             if(record == null){
                 if(detailData != null){
                     storeDownProgressBar.setProgress(0);
+                    storeProgress.setText("0%");
                     storeDownProgressBar.setMax(100);
                     storeDownProgressBar.setVisibility(View.VISIBLE);
                     DownloadUtil.get().removeTask(request);

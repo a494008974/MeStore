@@ -9,6 +9,7 @@
 
     <EditText
         android:id="@+id/edit_search"
+        android:imeOptions="actionNone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
         android:layout_marginBottom="32dp"

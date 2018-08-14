@@ -17,6 +17,7 @@ import com.mylove.module_base.net.down.DownloadListener;
 import com.mylove.module_base.net.down.DownloadRecord;
 import com.mylove.module_base.net.down.DownloadRequest;
 import com.mylove.module_base.net.down.DownloadUtil;
+import com.mylove.module_base.utils.AppUtils;
 import com.mylove.module_base.utils.FileUtils;
 import com.mylove.store.Constanst;
 import com.mylove.store.DetailActivity;
@@ -74,12 +75,18 @@ public class Update {
                 .subscribe(new BaseObserver<String>() {
                     @Override
                     public void onSuccess(String s) {
-                        Gson gson = new Gson();
-                        UpdateData updateData = gson.fromJson(s,UpdateData.class);
-                        if(updateData != null){
-                            if("2".equals(updateData.getStatus())){
-                                showUpdate(updateData);
+                        if("".equals(s)) return;
+
+                        try {
+                            Gson gson = new Gson();
+                            UpdateData updateData = gson.fromJson(s,UpdateData.class);
+                            if(updateData != null){
+                                if("2".equals(updateData.getStatus())){
+                                   showUpdate(updateData);
+                                }
                             }
+                        }catch (Exception e){
+
                         }
                     }
 

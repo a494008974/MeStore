@@ -5,15 +5,18 @@ package com.mylove.store.adapter;
  */
 
 import android.content.Context;
+import android.widget.ImageView;
 
 import com.mylove.module_base.adapter.CommonRecyclerViewAdapter;
 import com.mylove.module_base.adapter.CommonRecyclerViewHolder;
+import com.mylove.module_base.helper.ImageLoaderHelper;
 import com.mylove.store.R;
 import com.mylove.store.bean.MenuData;
 
 
 public class ListAdapter extends CommonRecyclerViewAdapter<MenuData> {
     private boolean isVertical;
+
     public ListAdapter(Context context, boolean isVertical) {
         super(context);
         this.isVertical = isVertical;
@@ -27,5 +30,6 @@ public class ListAdapter extends CommonRecyclerViewAdapter<MenuData> {
     @Override
     public void onBindItemHolder(CommonRecyclerViewHolder helper, MenuData item, int position) {
         helper.getHolder().setText(R.id.store_list_title, item.getName());
+        ImageLoaderHelper.getInstance().load(mContext,item.getIcon(),(ImageView) helper.getHolder().getView(R.id.store_list_icon));
     }
 }
