@@ -5,16 +5,17 @@ import com.mylove.launcher.model.LauncherApi;
 import com.mylove.launcher.module.LauncherModule;
 import com.mylove.module_base.module.ApplicationModule;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
  * Created by Administrator on 2018/8/14.
  */
-
-@Component(dependencies = {ApplicationModule.class, LauncherModule.class})
+@Singleton
+@Component(modules = {ApplicationModule.class, LauncherModule.class})
 public interface LauncherComponent {
 
     void inject(MainActivity mainActivity);
 
-    LauncherApi getLauncherApi();
 }

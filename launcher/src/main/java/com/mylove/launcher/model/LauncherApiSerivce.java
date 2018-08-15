@@ -1,11 +1,11 @@
 package com.mylove.launcher.model;
 
-import android.database.Observable;
 
 import com.mylove.launcher.bean.Bizhi;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 
 /**
