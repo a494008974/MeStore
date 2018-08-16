@@ -24,5 +24,4 @@ public interface StoreComponent {
 
     void inject(SearchActivity searchActivity);
 
-    StoreApi getStoreApi();
 }

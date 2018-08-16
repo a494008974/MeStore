@@ -77,17 +77,6 @@ public class ImageLoaderHelper {  //待封装
                     .diskCacheStrategy(DiskCacheStrategy.ALL);
             Glide.with(context).load(url).apply(options).into(iv);
         }
-
-    }
-
-    public void load(Context context, Uri url, ImageView iv) {
-        if (iv != null) {
-            RequestOptions options = new RequestOptions()
-                    .placeholder(IMG_LOADING)
-                    .centerCrop()
-                    .diskCacheStrategy(DiskCacheStrategy.ALL);
-            Glide.with(context).load(url).apply(options).into(iv);
-        }
     }
 
     public void load(Context context, File file, ImageView iv,String signature) {
@@ -102,12 +91,9 @@ public class ImageLoaderHelper {  //待封装
     }
 
     public void load(Context context, String url, ImageView iv, int radius) {
-
         if (iv != null) {
             RequestOptions options = new RequestOptions()
-                    .placeholder(IMG_LOADING)
                     .transform(new GlideRoundTransform(context))
-//                    .centerCrop()
                     .diskCacheStrategy(DiskCacheStrategy.ALL);
 
             Glide.with(context)
@@ -121,4 +107,23 @@ public class ImageLoaderHelper {  //待封装
         RequestBuilder<File> requestBuilder = Glide.with(context).download(url);
         requestBuilder.submit();
     }
+
+    public void loadForCache(Context context, String url, ImageView iv) {
+        if (iv != null) {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL);
+            Glide.with(context).load(url).apply(options).into(iv);
+        }
+    }
+
+    public void load(Context context, Uri url, ImageView iv) {
+        if (iv != null) {
+            RequestOptions options = new RequestOptions()
+                    .centerCrop()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL);
+            Glide.with(context).load(url).apply(options).into(iv);
+        }
+    }
+
 }

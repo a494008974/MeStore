@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.trello.rxlifecycle2.LifecycleTransformer;
 
+import org.greenrobot.eventbus.EventBus;
+
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
@@ -25,6 +27,7 @@ public abstract class BaseActivity<TP extends BaseContract.BasePresenter> extend
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EventBus.getDefault().register(this);
         mRootView = createView(null, null, savedInstanceState);
         setContentView(mRootView);
         initInjector(BaseApplication.getAppContext().getApplicationComponent());
@@ -85,6 +88,7 @@ public abstract class BaseActivity<TP extends BaseContract.BasePresenter> extend
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        EventBus.getDefault().unregister(this);
         if (mPresenter != null) {
             mPresenter.detachView();
         }

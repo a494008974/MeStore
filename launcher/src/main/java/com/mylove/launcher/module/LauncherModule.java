@@ -3,6 +3,8 @@ package com.mylove.launcher.module;
 import com.mylove.launcher.model.LauncherApi;
 import com.mylove.launcher.model.LauncherApiSerivce;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
@@ -16,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class LauncherModule {
 
+    @Singleton
     @Provides
     LauncherApi provideLauncherApi(OkHttpClient.Builder builder){
 

@@ -31,33 +31,6 @@ public class MainPresenter extends BasePresenter<MainContract.View> implements M
         this.launcherApi = launcherApi;
     }
 
-    public void showBizhi(final Context context) {
-        launcherApi.getBizhi()
-                .compose(RxSchedulers.<List<Bizhi>>applySchedulers())
-                .map(new Function<List<Bizhi>, List<Bizhi>>() {
-                    @Override
-                    public List<Bizhi> apply(List<Bizhi> bizhis) throws Exception {
-                        for (Bizhi bizhi : bizhis){
-                            ImageLoaderHelper.getInstance().download(context,bizhi.getImage());
-                        }
-                        return bizhis;
-                    }
-                })
-                .subscribe(new BaseObserver<List<Bizhi>>() {
-                    @Override
-                    public void onSuccess(List<Bizhi> bizhis) {
-                        if(bizhis != null && bizhis.size() > 0 && mView != null){
-                            mView.showBizhi(bizhis);
-                        }
-                    }
-
-                    @Override
-                    public void onFail(Throwable e) {
-                    }
-                });
-
-    }
-
     public void startServer(Context context){
         System.out.println("startServer ........ ");
         fHttpManager = FHttpManager.init(context, ActionController.class);

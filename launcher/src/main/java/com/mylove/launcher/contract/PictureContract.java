@@ -9,13 +9,13 @@ import java.util.List;
  * Created by Administrator on 2018/8/14.
  */
 
-public class MainContract implements BaseContract{
+public class PictureContract implements BaseContract{
 
-    public interface View extends BaseContract.BaseView{
-
+    public interface View extends BaseView{
+        void showBizhi(List<Bizhi> bizhis);
     }
 
-    public interface Presenter extends BaseContract.BasePresenter<View>{
+    public interface Presenter extends BasePresenter<View>{
     }
 
 }

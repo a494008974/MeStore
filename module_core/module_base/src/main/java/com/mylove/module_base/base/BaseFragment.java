@@ -52,6 +52,7 @@ public abstract class BaseFragment<TP extends BaseContract.BasePresenter> extend
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        initInjector(BaseApplication.getAppContext().getApplicationComponent());
         attachView();
         bindView(view, savedInstanceState);
     }
@@ -132,6 +133,8 @@ public abstract class BaseFragment<TP extends BaseContract.BasePresenter> extend
     protected void onMoveFocusBorder(View focusedView, float scale, float roundRadius) {
         if(null != mFocusBorder) {
             mFocusBorder.onFocus(focusedView, FocusBorder.OptionsFactory.get(scale, scale, roundRadius));
+        }else{
+            System.out.println("mFocusBorder = null");
         }
     }
 
