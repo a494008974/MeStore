@@ -27,7 +27,7 @@ public abstract class BaseActivity<TP extends BaseContract.BasePresenter> extend
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().register(this);
+        //EventBus.getDefault().register(this);
         mRootView = createView(null, null, savedInstanceState);
         setContentView(mRootView);
         initInjector(BaseApplication.getAppContext().getApplicationComponent());
@@ -88,7 +88,7 @@ public abstract class BaseActivity<TP extends BaseContract.BasePresenter> extend
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        EventBus.getDefault().unregister(this);
+        //EventBus.getDefault().unregister(this);
         if (mPresenter != null) {
             mPresenter.detachView();
         }

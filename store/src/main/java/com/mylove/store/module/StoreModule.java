@@ -1,6 +1,9 @@
 package com.mylove.store.module;
 
+import android.content.Context;
+
 import com.mylove.module_base.base.BaseApplication;
+import com.mylove.store.R;
 import com.mylove.store.model.StoreApi;
 import com.mylove.store.model.StoreApiService;
 import com.mylove.store.utils.JsonConverterFactory;
@@ -19,15 +22,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class StoreModule {
 
     @Provides
-    StoreApi provideStoreApi(OkHttpClient.Builder builder) {
+    StoreApi provideStoreApi(OkHttpClient.Builder builder, Context mContext) {
 
         Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
                 .addConverterFactory(JsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
 
+        String storeUrl = mContext.getString(R.string.module_store_base_url);
+
         return StoreApi.getInstance(retrofitBuilder
-                .baseUrl(StoreApiService.sStoreApi)
+                .baseUrl(storeUrl)
                 .build().create(StoreApiService.class));
     }
 

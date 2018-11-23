@@ -77,8 +77,10 @@ public class SplashActivity extends BaseActivity{
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
 
+        String splashUrl = this.getString(R.string.module_store_animation_url);
+
         SplashApiService splashApiService = retrofitBuilder
-                .baseUrl(SplashApiService.sAnimation)
+                .baseUrl(splashUrl)
                 .build().create(SplashApiService.class);
 
         splashApiService.getSplash(LocaleHelper.getLanguage(this).getLanguage())
@@ -113,6 +115,8 @@ public class SplashActivity extends BaseActivity{
                 .build();
         DownloadUtil.get().enqueue(request);
     }
+
+
 
     @Override
     public void initData() {

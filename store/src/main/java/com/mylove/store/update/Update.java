@@ -59,8 +59,10 @@ public class Update {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
 
+        String updateUrl = mContext.getString(R.string.module_store_update_url);
+
         UpdateApiService updateApiService = retrofitBuilder
-                .baseUrl(UpdateApiService.sUpdate)
+                .baseUrl(updateUrl)
                 .build().create(UpdateApiService.class);
 
         updateApiService.getUpdate(Constanst.getUpdateUrl(SystemUtility.getParam(mContext)))

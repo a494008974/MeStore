@@ -22,4 +22,8 @@
     <string name="module_store_update_version">Version upgrade</string>
     <string name="module_store_update_btn_ok">Upgrade</string>
     <string name="module_store_update_btn_cancle">Ignore</string>
+
+    <string name="module_store_base_url">http://sapi.bsw-inc.com/</string>
+    <string name="module_store_animation_url">http://sapi.bsw-inc.com/</string>
+    <string name="module_store_update_url">http://api.bsw-inc.com/</string>
 </resources>

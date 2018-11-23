@@ -20,7 +20,8 @@ import retrofit2.http.Query;
 public interface StoreApiService {
 
     int sSize = 24;
-    String sStoreApi = "http://sapi.bsw-inc.com/";
+//    String sStoreApi = "http://sapi.bsw-inc.com/";
+    String sStoreApi = "http://appstore-api.bshltv.com/";
 
 //    http://sapi.bsw-inc.com/menu/getMenu?lang=en
     @GET("menu/getMenu")
