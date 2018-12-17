@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="@dimen/dp_70"
+    android:layout_margin="@dimen/dp_10">
+    <ImageView
+        android:id="@+id/store_devices_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_5"
+        android:layout_gravity="left"
+        android:src="@drawable/arm_icon"/>
+    <TextView
+        android:id="@+id/store_devices_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textSize="@dimen/sp_24"
+        android:alpha="0.8"
+        android:singleLine="true"
+        android:text="@string/module_store_app_arm"
+        />
+    <TextView
+        android:id="@+id/store_devices_value"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/sp_24"
+        android:gravity="center|right"
+        android:paddingRight="@dimen/dp_10"
+        android:alpha="0.8"
+        android:singleLine="true"
+        android:text="@string/module_store_app_arm"
+        />
+</LinearLayout>

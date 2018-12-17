@@ -23,7 +23,7 @@
           android:drawable="@color/module_store_item_default_color"/>
     
     <item android:state_activated="true"
-          android:drawable="@drawable/module_store_item_default"/>
+          android:drawable="@color/module_store_color_enblue"/>
 
     <item android:drawable="@color/module_store_item_default_color"/>
 

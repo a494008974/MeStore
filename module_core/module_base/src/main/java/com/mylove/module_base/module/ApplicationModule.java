@@ -42,7 +42,8 @@ public class ApplicationModule {
         // 指定缓存路径,缓存大小10Mb
         Cache cache = new Cache(new File(BaseApplication.getAppContext().getCacheDir(), "HttpCache"),
                 1024 * 1024 * 30);
-        return new OkHttpClient().newBuilder().cache(cache)
+        return new OkHttpClient().newBuilder()
+                .cache(cache)
                 .retryOnConnectionFailure(true)
                 .addInterceptor(RetrofitConfig.sLoggingInterceptor)
                 .addInterceptor(RetrofitConfig.sRewriteCacheControlInterceptor)

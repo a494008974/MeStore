@@ -14,7 +14,7 @@ import retrofit2.http.Url;
 
 public interface UpdateApiService {
 
-    String sUpdate = "http://api.bsw-inc.com/";
+//    String sUpdate = "http://api.bsw-inc.com/";
 
     @GET
     Observable<String> getUpdate(@Url String url);

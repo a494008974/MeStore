@@ -1,6 +1,7 @@
 package com.mylove.store.module;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.mylove.module_base.base.BaseApplication;
 import com.mylove.store.R;
@@ -30,6 +31,7 @@ public class StoreModule {
                 .client(builder.build());
 
         String storeUrl = mContext.getString(R.string.module_store_base_url);
+        Log.e("StoreModule",storeUrl);
 
         return StoreApi.getInstance(retrofitBuilder
                 .baseUrl(storeUrl)

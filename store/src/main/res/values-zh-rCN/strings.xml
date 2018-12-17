@@ -13,13 +13,25 @@
         <b>软件简介: </b>%s
     </string>
 
+    <string name="module_store_app_sb">设备信息</string>
+    <string name="module_store_app_android_ver">系统版本</string>
+    <string name="module_store_app_arm">运行内存</string>
+    <string name="module_store_app_cpu">CPU</string>
+    <string name="module_store_app_sd">存储空间</string>
+    <string name="module_store_app_gpu">GPU</string>
 
     <string name="module_store_app_search">搜索</string>
     <string name="module_store_app_default">默认</string>
     <string name="module_store_app_recommand">更新</string>
+    <string name="module_store_app_devices_info">设备信息</string>
     <string name="module_store_app_record">%s/%s</string>
 
     <string name="module_store_update_version">版本升级</string>
     <string name="module_store_update_btn_ok">升级</string>
     <string name="module_store_update_btn_cancle">忽略</string>
+
+
+    <string name="module_store_base_url">http://appstore-api.bshltv.com/</string>
+    <string name="module_store_update_url">http://mng.on-best.com/</string>
+
 </resources>

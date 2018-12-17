@@ -3,6 +3,7 @@ package com.mylove.store.update;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,6 +27,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
+import android.os.StatFs;
 import android.provider.Settings;
 import android.util.Log;
 
@@ -53,7 +55,95 @@ public class SystemUtility {
        // }
 		return value;
 	}
-	
+
+	public static String getAllTotalMemorySize(){
+		File path = Environment.getDataDirectory();
+		StatFs stat = new StatFs(path.getPath());
+		long blockSize = stat.getBlockSize();
+		long totalBlocks = stat.getBlockCount();
+		Long size = (totalBlocks * blockSize)/(1024*1024*1024);
+		String str = "";
+		if (size < 4.0F) {
+			str = "4.0";
+		} else if (size < 8.0F) {
+			str = "8.0";
+		} else if (size < 16.0F) {
+			str = "16.0";
+		} else if (size < 32.0F) {
+			str = "32.0";
+		} else if (size < 64.0F) {
+			str = "64.0";
+		} else {
+			str = "128.0";
+		}
+		return str + "G";
+	}
+
+	public static String getTotalMemorySize() {
+		int mem =  getTotalMemory();
+		if(mem > 8000)
+			return "10G";
+		if(mem > 5000)
+			return "8G";
+		if(mem > 3200)
+			return "4G";
+		if(mem > 1500)
+			return "2G";
+		if(mem > 750)
+			return "1G";
+		return "512M";
+	}
+	public static String getSystemModel() {
+		return android.os.Build.MODEL;
+	}
+	public static String getSystemVersion() {
+		return android.os.Build.VERSION.RELEASE;
+	}
+
+	public static int getTotalMemory() {
+		String str1 = "/proc/meminfo";// 系统内存信息文件
+		String str2;
+		String[] arrayOfString;
+		int initial_memory = 0;
+
+		try {
+			FileReader localFileReader = new FileReader(str1);
+			BufferedReader localBufferedReader = new BufferedReader(
+					localFileReader, 8192);
+			str2 = localBufferedReader.readLine();// 读取meminfo第一行，系统总内存大小
+
+			arrayOfString = str2.split("\\s+");
+			for (String num : arrayOfString) {
+				Log.i(str2, num + "\t");
+			}
+
+			initial_memory = Integer.valueOf(arrayOfString[1]).intValue() /1024 ;// 获得系统总内存，单位是KB，乘以1024转换为Byte
+			localBufferedReader.close();
+			Log.d("KKKK","initial_memory "+initial_memory);
+
+		} catch (IOException e) {
+		}
+		return initial_memory;
+	}
+
+	public static String getValue(String type){
+		String value = "";
+		if ("2001".equals(type)){
+			value = getSystemModel();
+		}else if ("2002".equals(type)){
+			value = getSystemVersion();
+		}else if ("2003".equals(type)){
+			value = "ARMv7 Processor 1.5GHz 八核";
+		}else if ("2004".equals(type)){
+			value = getTotalMemorySize();
+		}else if ("2005".equals(type)){
+			value = getAllTotalMemorySize();
+		}else if ("2006".equals(type)){
+			value = "Mali-400 MP 十六核";
+		}
+		return value;
+	}
+
 	public static int clearData(Context paramContext, String paramString) {
 		try {
 			Runtime.getRuntime().exec("pm clear " + paramString);

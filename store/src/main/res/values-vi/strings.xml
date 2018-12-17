@@ -13,7 +13,13 @@
         <b>Giới thiệu phần mềm: </b>%s
     </string>
 
-
+    <string name="module_store_app_sb">Device</string>
+    <string name="module_store_app_android_ver">Version</string>
+    <string name="module_store_app_arm">Arm</string>
+    <string name="module_store_app_cpu">Cpu</string>
+    <string name="module_store_app_sd">Sdcard</string>
+    <string name="module_store_app_gpu">Gpu</string>
+    <string name="module_store_app_devices_info">DevicesInfo</string>
     <string name="module_store_app_search">Tìm</string>
     <string name="module_store_app_default">Mặc định</string>
     <string name="module_store_app_recommand">Cập nhật</string>
@@ -22,4 +28,7 @@
     <string name="module_store_update_version">Phiên bản nâng cấp</string>
     <string name="module_store_update_btn_ok">Nâng cấp</string>
     <string name="module_store_update_btn_cancle">Ignore</string>
+
+    <string name="module_store_base_url">http://sapi.bsw-inc.com/</string>
+    <string name="module_store_update_url">http://mng.on-best.com/</string>
 </resources>

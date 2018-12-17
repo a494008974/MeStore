@@ -3,11 +3,42 @@
     <string-array name="sort">
         <item>@string/module_store_app_default</item>
         <item>@string/module_store_app_recommand</item>
+        <item>@string/module_store_app_devices_info</item>
     </string-array>
 
     <string-array name="sort_value">
         <item>1001</item>
         <item>1002</item>
+        <item>1003</item>
+    </string-array>
+
+
+    <string-array name="device">
+        <item>@string/module_store_app_sb</item>
+        <item>@string/module_store_app_android_ver</item>
+        <item>@string/module_store_app_cpu</item>
+        <item>@string/module_store_app_arm</item>
+        <item>@string/module_store_app_sd</item>
+        <item>@string/module_store_app_gpu</item>
+    </string-array>
+
+
+    <integer-array name="device_icon">
+        <item>@drawable/sb_icon</item>
+        <item>@drawable/ver_icon</item>
+        <item>@drawable/cpu_icon</item>
+        <item>@drawable/arm_icon</item>
+        <item>@drawable/sd_icon</item>
+        <item>@drawable/gpu_icon</item>
+    </integer-array>
+
+    <string-array name="device_value">
+        <item>2001</item>
+        <item>2002</item>
+        <item>2003</item>
+        <item>2004</item>
+        <item>2005</item>
+        <item>2006</item>
     </string-array>
 
     <string-array name="search">

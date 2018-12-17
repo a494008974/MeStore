@@ -1,5 +1,7 @@
 package com.mylove.store.utils;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 
@@ -35,6 +37,7 @@ public class JsonResponseBodyConverter<T> implements Converter<ResponseBody, T> 
     public T convert(ResponseBody responseBody) throws IOException {
         String response = responseBody.string();
         response = AesHelper.AES_Decrypt("1234567890123456",response);
+        //Log.e("ZZZZ",response);
         try{
             return adapter.fromJson(response);
         } catch (Exception e) {

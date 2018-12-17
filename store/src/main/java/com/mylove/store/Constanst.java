@@ -21,10 +21,10 @@ public class Constanst {
     public static String SPLASHNAME = "splash";
 
     public static final String UMENG_CHANNEL = "UMENG_CHANNEL";
-    public static final String UPDATE_URL = UpdateApiService.sUpdate + "index.php/update/app?data=%s";
+    public static final String UPDATE_URL = "%sindex.php/update/app?data=%s";
 
-    public static String getUpdateUrl(String data){
-        return String.format(UPDATE_URL, data);
+    public static String getUpdateUrl(String domain,String data){
+        return String.format(UPDATE_URL,domain,data);
     }
 
     public static String getMeta(Context ctx, String key){

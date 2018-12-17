@@ -77,7 +77,7 @@ public class SplashActivity extends BaseActivity{
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(builder.build());
 
-        String splashUrl = this.getString(R.string.module_store_animation_url);
+        String splashUrl = this.getString(R.string.module_store_base_url);
 
         SplashApiService splashApiService = retrofitBuilder
                 .baseUrl(splashUrl)

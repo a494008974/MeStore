@@ -148,7 +148,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
-                    onMoveFocusBorder(v, 1.0f, 8);
+                    onMoveFocusBorder(v, 1.0f, 0);
                 }
             }
         };
@@ -157,7 +157,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements Det
         storeDetailPic.setOnItemListener(new SimpleOnItemListener() {
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                onMoveFocusBorder(itemView, 1.0f, 8);
+                onMoveFocusBorder(itemView, 1.0f, 0);
             }
 
             @Override

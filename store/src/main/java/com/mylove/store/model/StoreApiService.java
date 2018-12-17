@@ -19,10 +19,8 @@ import retrofit2.http.Query;
 
 public interface StoreApiService {
 
-    int sSize = 24;
+    int sSize = 50;
 //    String sStoreApi = "http://sapi.bsw-inc.com/";
-    String sStoreApi = "http://appstore-api.bshltv.com/";
-
 //    http://sapi.bsw-inc.com/menu/getMenu?lang=en
     @GET("menu/getMenu")
     Observable<BaseArray<MenuData>> getMenu(@Query("lang") String lang);
@@ -47,7 +45,7 @@ public interface StoreApiService {
                                                   @Query("name") String name);
 
 
-    String sAnimation = "http://sapi.bsw-inc.com/";
+//    String sAnimation = "http://sapi.bsw-inc.com/";
 
     @GET("animation/getAnimation")
     Observable<BaseObject<SplashData>> getSplash(@Query("lang") String lang);

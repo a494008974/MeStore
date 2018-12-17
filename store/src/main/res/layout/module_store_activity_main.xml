@@ -85,24 +85,34 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="9">
+                <com.owen.tvrecyclerview.widget.TvRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/store_apps"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:padding="@dimen/dp_20"
+                    app:tv_layoutManager="GridLayoutManager"
+                    app:tv_numColumns="3"
+                    app:tv_numRows="3" />
 
-            <com.owen.tvrecyclerview.widget.TvRecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/store_apps"
+                <ImageView
+                    android:id="@+id/store_progressbar"
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="@dimen/dp_80"
+                    android:layout_gravity="center"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/module_store_anim_progress" />
+            <com.owen.tvrecyclerview.widget.TvRecyclerView
+                android:id="@+id/devices_info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="@dimen/dp_40"
+                android:paddingLeft="@dimen/dp_130"
+                android:paddingRight="@dimen/dp_130"
+                android:visibility="gone"
                 android:orientation="vertical"
-                android:padding="@dimen/dp_20"
-                app:tv_layoutManager="GridLayoutManager"
-                app:tv_numColumns="3"
-                app:tv_numRows="3" />
-
-            <ImageView
-                android:id="@+id/store_progressbar"
-                android:layout_width="@dimen/dp_80"
-                android:layout_height="@dimen/dp_80"
-                android:layout_gravity="center"
-                android:scaleType="fitCenter"
-                android:src="@drawable/module_store_anim_progress" />
+                app:tv_isMenu="true"
+                app:tv_layoutManager="ListLayoutManager"/>
         </FrameLayout>
     </LinearLayout>
 </LinearLayout>

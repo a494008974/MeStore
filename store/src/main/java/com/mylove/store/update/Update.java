@@ -65,7 +65,7 @@ public class Update {
                 .baseUrl(updateUrl)
                 .build().create(UpdateApiService.class);
 
-        updateApiService.getUpdate(Constanst.getUpdateUrl(SystemUtility.getParam(mContext)))
+        updateApiService.getUpdate(Constanst.getUpdateUrl(updateUrl,SystemUtility.getParam(mContext)))
                 .compose(RxSchedulers.<String>applySchedulers())
                 .map(new Function<String, String>() {
                     @Override

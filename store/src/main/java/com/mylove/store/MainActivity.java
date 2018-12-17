@@ -1,9 +1,16 @@
 package com.mylove.store;
 
+import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -12,6 +19,7 @@ import android.widget.TextView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.mylove.module_base.adapter.CommonRecyclerViewAdapter;
+import com.mylove.module_base.adapter.CommonRecyclerViewHolder;
 import com.mylove.module_base.base.BaseActivity;
 import com.mylove.module_base.base.BaseApplication;
 import com.mylove.module_base.component.ApplicationComponent;
@@ -30,6 +38,7 @@ import com.mylove.store.contract.MainContract;
 import com.mylove.store.model.StoreApiService;
 import com.mylove.store.module.StoreModule;
 import com.mylove.store.presenter.MainPresenter;
+import com.mylove.store.update.SystemUtility;
 import com.mylove.store.update.Update;
 import com.owen.tvrecyclerview.widget.SimpleOnItemListener;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
@@ -59,6 +68,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @BindView(R2.id.store_sort)
     TvRecyclerView storeSort;
 
+    @BindView(R2.id.devices_info)
+    TvRecyclerView devicesInfo;
+
     @BindView(R2.id.store_main_record)
     TextView storeMainRecord;
 
@@ -69,14 +81,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public boolean showMore = false;
 
     private ListAdapter mListAdapter;
-    private StringAdapter mSortAdapter,mOtherAdapter;
     private CommonRecyclerViewAdapter mGridAdapter;
-
+    private CommonRecyclerViewAdapter mOtherAdapter,mSortAdapter,mDeviceAdapter;
     private float scale = 1.0f;
     private List<MenuData> typeDatas = new ArrayList<MenuData>();
     private List<AppData> appDatas = new ArrayList<AppData>();
 
-    private String[] sortValue,toolValue;
+    private String[] sortValue,toolValue,deviceValue;
+    private TypedArray deviceIcon;
 
     private int selPosition = -1,cPosition = -1;
     private String sort = "1001";
@@ -119,6 +131,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void bindView(View view, Bundle savedInstanceState) {
         sortValue = getResources().getStringArray(R.array.sort_value);
         toolValue = getResources().getStringArray(R.array.search_value);
+        deviceValue = getResources().getStringArray(R.array.device_value);
+        deviceIcon = getResources().obtainTypedArray(R.array.device_icon);
 
         initFocusBorder();
         setListener();
@@ -129,14 +143,35 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         storeType.setAdapter(mListAdapter);
 
         storeTool.setSpacingWithMargins(0, 0);
-        mOtherAdapter = new StringAdapter(this,R.layout.module_store_item_search);
-        mOtherAdapter.setDatas(Arrays.asList(getResources().getStringArray(R.array.search)));
+        mOtherAdapter = new CommonRecyclerViewAdapter<String>(MainActivity.this,Arrays.asList(getResources().getStringArray(R.array.search))) {
+            @Override
+            public int getItemLayoutId(int viewType) {
+                return R.layout.module_store_item_search;
+            }
+
+            @Override
+            public void onBindItemHolder(CommonRecyclerViewHolder helper, String item, int position) {
+                helper.getHolder().setText(R.id.store_list_title, item);
+            }
+        };
         storeTool.setAdapter(mOtherAdapter);
         storeTool.setVisibility(View.INVISIBLE);
 
         storeSort.setSpacingWithMargins(0, 0);
-        mSortAdapter = new StringAdapter(this,R.layout.module_store_item_int_string);
-        mSortAdapter.setDatas(Arrays.asList(getResources().getStringArray(R.array.sort)));
+        mSortAdapter = new CommonRecyclerViewAdapter<String>(MainActivity.this,Arrays.asList(getResources().getStringArray(R.array.sort))) {
+            @Override
+            public int getItemLayoutId(int viewType) {
+                return R.layout.module_store_item_int_string;
+            }
+
+            @Override
+            public void onBindItemHolder(CommonRecyclerViewHolder helper, String item, int position) {
+                if(position != 0){
+                    helper.getHolder().getView(R.id.store_list_title).setBackgroundResource(R.drawable.module_store_shape);
+                }
+                helper.getHolder().setText(R.id.store_list_title, item);
+            }
+        };
         storeSort.setAdapter(mSortAdapter);
         storeSort.setVisibility(View.INVISIBLE);
 
@@ -144,6 +179,25 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         mGridAdapter = new GridAdapter(this);
         mGridAdapter.setDatas(appDatas);
         storeApps.setAdapter(mGridAdapter);
+
+        mDeviceAdapter = new CommonRecyclerViewAdapter<String>(MainActivity.this,Arrays.asList(getResources().getStringArray(R.array.device))) {
+            @Override
+            public int getItemLayoutId(int viewType) {
+                return R.layout.module_store_devices_item;
+            }
+
+            @Override
+            public void onBindItemHolder(CommonRecyclerViewHolder helper, String item, int position) {
+                Drawable drawable = deviceIcon.getDrawable(position % deviceValue.length);
+                helper.getHolder().setText(R.id.store_devices_title, item);
+                helper.getHolder().setImageDrawable(R.id.store_devices_icon,drawable);
+
+                String type = deviceValue[position % deviceValue.length];
+                helper.getHolder().setText(R.id.store_devices_value, SystemUtility.getValue(type));
+            }
+        };
+        devicesInfo.setSpacingWithMargins(10, 00);
+        devicesInfo.setAdapter(mDeviceAdapter);
     }
 
     private void setListener() {
@@ -157,6 +211,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     showMore = false;
                     CurrentPage = 1;
                     mHandler.sendEmptyMessageDelayed(STORE_APPS,STORE_SEND_MSG_DURATION);
+                }else {
+                    if(!"1003".equals(sort)){
+                        storeApps.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -186,9 +244,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
                 mHandler.removeMessages(STORE_APPS);
-                onMoveFocusBorder(itemView, scale, 8);
+                devicesInfo.setVisibility(View.GONE);
+                onMoveFocusBorder(itemView, scale, 0);
                 String curSort = sortValue[position % sortValue.length];
-                if(!sort.equals(curSort)){
+                if("1003".equals(curSort)){
+                    sort = curSort;
+                    devicesInfo.setVisibility(View.VISIBLE);
+                    storeApps.setVisibility(View.GONE);
+                }else if(!sort.equals(curSort)){
                     sort = curSort;
                     showMore = false;
                     CurrentPage = 1;
@@ -201,14 +264,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
             }
         });
+        storeSort.setOnInBorderKeyEventListener(new TvRecyclerView.OnInBorderKeyEventListener() {
+            @Override
+            public boolean onInBorderKeyEvent(int direction, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN){
+                    switch (keyCode){
+                        case KeyEvent.KEYCODE_DPAD_UP:
+                            return true;
+                    }
+                }
+                return false;
+            }
+        });
         storeApps.setOnItemListener(new SimpleOnItemListener() {
 
             @Override
             public void onItemSelected(TvRecyclerView parent, View itemView, int position) {
-                onMoveFocusBorder(itemView, scale, 8);
+                onMoveFocusBorder(itemView, scale, 0);
                 if(mPageData != null){
                     storeMainRecord.setText(String.format(getString(R.string.module_store_app_record),String.valueOf(position + 1),String.valueOf(mPageData.getTotalCount())));
                     //加载更多
+
                     int pos = position % StoreApiService.sSize + 1;   //光标在那里判断加载
                     int pagep = position / StoreApiService.sSize + 1;  //当前页
                     if(pagep < mPageData.getTotalPage()){
@@ -219,6 +295,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                         CurrentPage = pagep;
                         mHandler.sendEmptyMessage(STORE_APPS);
                     }
+
                 }
             }
 
@@ -234,6 +311,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void onDestroy() {
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);
+        System.exit(0);
     }
 
     protected void onMoveFocusBorder(View focusedView, float scale, float roundRadius) {
@@ -278,7 +356,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 storeMainRecord.setText(String.format(getString(R.string.module_store_app_record),String.valueOf(1),String.valueOf(mPageData.getTotalCount())));
             }
             storeProgressbar.setVisibility(View.GONE);
-            storeApps.setVisibility(View.VISIBLE);
+            if(!"1003".equals(sort)){
+                storeApps.setVisibility(View.VISIBLE);
+            }
         }else{
             mGridAdapter.appendDatas(pageData.getPageData());
         }
@@ -318,6 +398,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                                 String.valueOf(StoreApiService.sSize));
                     }
                 break;
-            }
+        }
     }
 }

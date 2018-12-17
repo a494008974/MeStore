@@ -84,8 +84,6 @@ public class RetrofitConfig {
             Buffer requestBuffer = new Buffer();
             if (request.body() != null) {
                 request.body().writeTo(requestBuffer);
-            } else {
-                Log.d("LogTAG", "request.body() == null");
             }
             //打印url信息
             Log.w(TAG, "intercept: " + request.url() + (request.body() != null ? "?" + _parseParams(request.body(), requestBuffer) : ""));
